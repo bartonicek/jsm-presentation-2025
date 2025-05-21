@@ -1,0 +1,37 @@
+/*-- scss:defaults --*/
+
+$body-bg: #f3f4f6;
+$body-color: #000000;
+$link-color: #1F78B4;
+$presentation-h1-font-size: 2em;
+
+/*-- scss:rules --*/
+
+.middle {
+  text-align: center;
+}
+
+.large {
+  font-size: 1.5em;
+}
+
+.no-bullet > ul > li {
+  list-style-type: none;
+}
+
+.smaller-gap > .quarto-figure {
+  margin-bottom: 0.5em;
+}
+
+.title, .subtitle {
+  text-align: left;
+}
+
+.reveal .quarto-title-block .quarto-title-authors {
+  text-align: left;
+  justify-content: left;
+}
+
+.reveal .quarto-title-block .quarto-title-authors .quarto-title-author {
+  padding-left: 0em;
+}

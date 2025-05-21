@@ -1,0 +1,388 @@
+---
+title: "Interactive Data Exploration with Plotscaper"
+subtitle: " and the Hidden Algebra of Interactive Graphics"
+format: 
+  revealjs:
+    theme: [default, styles.scss]
+author: 
+  name: "Adam Bartonicek"
+  affiliation: "The University of Auckland"
+bibliography: [references.bib]
+biblio-style: "apalike"
+editor_options: 
+  chunk_output_type: console
+---
+
+## Live Demo {.center .middle .large}
+
+## The Grammar of Graphics {.center .middle .large}
+
+##
+
+::: {layout-ncol=2 .center .middle .smaller-gap}
+
+![Leland Wilkinson](./images/leland_wilkinson.png){height=250}
+
+![Vegalite](./images/vegalite.png){height=250}
+
+![ggplot2](./images/ggplot2.png){height=250}
+
+![Tableau](./images/tableau.png){height=250}
+
+:::
+
+## Key properties of GoG {.center}
+
+:::{.incremental}
+- Algebraic
+- Declarative
+- Modular (mix and match)
+- Recipes, not taxonomies
+:::
+
+## @wilkinson2012 {.center}
+
+:::{.incremental}
+- *"This system cannot produce a meaningless graphic, however. This is a strong claim, vulnerable to a single counter-example. It is a claim based on the formal rules of the system, however, not on the evaluation of specific graphics it may produce."* (pp. 15)
+- *"Some of the combinations of graphs and statistical methods may be degenerate or bizarre, but there is no moral reason to restrict them."* (pp. 112)
+:::
+
+
+## What makes a plot degenerate? {.center .middle}
+
+##
+
+```{r}
+library(ggplot2)
+library(patchwork)
+
+mtcars$cyl <- factor(mtcars$cyl)
+mtcars$am <- factor(mtcars$am)
+
+pal_paired_3 <- palette.colors(6, "Paired")[c(1, 2, 5, 6, 3, 4)]
+pal_dark_3 <- pal_paired_3[2 * 1:3]
+
+assign("scale_fill_discrete", function(..., values = pal_paired_3) 
+  scale_fill_manual(..., values = values), globalenv())
+
+assign("scale_color_discrete", function(..., values = pal_paired_3) 
+  scale_color_manual(..., values = values), globalenv())
+
+theme_set(theme_bw(base_size = 20) +
+          theme(panel.grid = element_blank()))
+```
+
+```{r}
+#| eval: false
+p <- ggplot(mtcars, aes(cyl, wt, fill = am)) +
+  geom_bar(stat = "summary", fun = "mean") +
+  labs(x = "Cylinders", y = NULL, fill = "Auto")
+ggsave("./images/degenerate1.png", p, width = 6.53, height = 4, units = "in")
+```
+
+![](./images/degenerate1.png)
+
+##
+
+```{r}
+#| eval: false
+p <- ggplot(mtcars, aes(cyl, wt, fill = am)) +
+  geom_bar(stat = "summary", fun = "mean") +
+  labs(x = "Cylinders", y = "Average weight", fill = "Auto")
+ggsave("./images/degenerate2.png", p, width = 6.53, height = 4, units = "in")
+```
+
+![](./images/degenerate2.png)
+
+##
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(mtcars, aes(cyl, wt, fill = am)) +
+  geom_bar(stat = "summary", fun = "mean") +
+  labs(x = "Cylinders", y = "Average weight", fill = "Auto")
+```
+
+```{r}
+#| eval: false
+p <- ggplot(mtcars, aes(cyl, wt, fill = am)) +
+  geom_bar(stat = "summary", fun = "mean") +
+  labs(x = "Cylinders", y = "Average weight", fill = "Auto")
+ggsave("./images/degenerate3.png", p, width = 6.53, height = 4, units = "in")
+```
+
+![](./images/degenerate3.png)
+
+##
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(mtcars, aes(cyl, wt, fill = am)) +
+  geom_bar(stat = "summary", fun = "mean", position = "stack") +
+  labs(x = "Cylinders", y = "Average weight", fill = "Auto")
+```
+
+![](./images/degenerate3.png)
+
+## Stacking is not *just* a graphical operation... {.center .middle}
+
+## Stacking: Not only about graphics {.smaller .center}
+
+::: {.incremental}
+
+- *"Stacking is useful when the sum of the amounts represented by the individual stacked bars is in itself a meaningful amount."* [@wilke2019, p. 52]
+
+- *"Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that statistic must be summable. Stacking bars that represent counts, sums, or percentages are fine, but a stacked bar chart where bars show average values is generally meaningless."* [@wills2011, p. 112]
+
+- *"[...] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which can easily lead to misinterpretation."* [@wu2022]
+
+:::
+
+## *What* we compute and *how* we display it are not independent concerns... {.center .middle}
+
+## Particularly in interactive data visualization... {.center .middle}
+
+## Linked selection
+
+- One of the most useful interactive features^[see e.g. @becker1987; @buja1996; @wilhelm2003; @heer2012; @ward2015; @ware2019]
+- Click or click and drag to select objects in one plot, highlight the corresponding cases across all other plots
+
+```{r}
+
+limits <- c(2.55, 12, 4.25, 26)
+mtcars$selected <- with(mtcars, wt > limits[1] & mpg > limits[2]
+                        & wt < limits[3] & mpg < limits[4])
+
+p1 <- ggplot(mtcars, aes(wt, mpg, col = selected)) + 
+  geom_point() +
+  geom_rect(xmin = limits[1], xmax = limits[3], 
+            ymin = limits[2], ymax = limits[4],
+            fill = NA, col = "grey60", lty = "dashed") +
+  scale_color_manual(values = pal_paired_3) +
+  guides(col = "none") +
+  theme_bw(base_size = 12) +
+  theme(panel.grid = element_blank(),
+        plot.margin = unit(c(0, 0.5, 0, 0), units = "cm"))
+
+p2 <- ggplot(mtcars, aes(cyl, fill = selected)) + 
+  geom_bar(col = "white") + 
+  guides(fill = "none") +
+  theme_bw(base_size = 12) +
+  theme(panel.grid = element_blank(),
+        plot.margin = unit(c(0, 0, 0, 0.5), units = "cm"))
+
+p <- p1 + p2
+ggsave("./images/linked-selection.png", width = 6.35, height = 2, units = "in")
+```
+![](./images/linked-selection.png){height=250 fig-align="center"}
+
+## Displaying linked selection
+
+:::{.incremental}
+
+- **One-to-one plots**: Easy 
+  - E.g. scatterplots, parallel coordinate plots
+  - Just draw each case/object in corresponding color
+- **Many-to-one (aggregated) plots**: More tricky
+  - E.g. barplots, histograms, bubbleplots, etc...
+  - Typically highlight *parts* of objects (i.e. stacking)
+  - Can also use dodging/overlay/replacement, however, drawbacks
+  
+:::
+
+## Disadvantages of dodging/overlay {.center}
+
+:::{.incremental}
+
+- The object sizes are not fixed/bounded
+- Axis limits may need to be recomputed upon selection
+- Loss of visual context [see @wilhelm2008; @sievert2020]
+  
+:::
+
+## {.center .middle}
+
+[Linked selection with a dodged barplot (Altair)](https://altair-viz.github.io/gallery/selection_histogram.html) 
+
+## {.center}
+
+```{r}
+#| eval: false
+p0 <- ggplot() +
+  guides(fill = "none") +
+  labs(x = NULL, y = NULL) +
+  theme_bw(base_size = 12) +
+          theme(panel.grid = element_blank())
+
+set.seed(89719)
+mtcars$group1 <- factor(sample(rep(c(0, 1), c(27, 5))))
+mtcars$group2 <- factor(sample(rep(c(0, 1), c(17, 15))))
+mtcars$group3 <- factor(sample(rep(c(0, 1), c(7, 25))))
+
+plots <- list()
+for (i in 1:3) {
+  mtcars$group <- mtcars[[paste0("group", i)]]
+  plots[[i]] <- p0 +
+    geom_bar(data = mtcars, col = "white", mapping = aes(cyl, fill = group))
+  plots[[3 + i]] <- plot_spacer()
+  plots[[6 + i]] <- p0 +
+    geom_bar(data = mtcars, col = "white", mapping = aes(cyl, fill = group),
+             position = "dodge")
+}
+
+p <- wrap_plots(plots, ncol = 3, heights = c(1, 0.1, 1))
+ggsave("./images/stacking-vs-dodging.png", p)
+```
+
+![](./images/stacking-vs-dodging.png)
+
+## Part-whole relations are great for interactive graphics... {.center .middle}
+
+## However, not always possible... {.center .middle}
+
+## {.center .middle .smaller}
+
+- *"Stacking is useful when the sum of the amounts represented by the individual stacked bars is in itself a meaningful amount."* [@wilke2019, p. 52]
+
+- *"Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that statistic must be summable. Stacking bars that represent counts, sums, or percentages are fine, but a stacked bar chart where bars show average values is generally meaningless."* [@wills2011, p. 112]
+
+- *"[...] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which can easily lead to misinterpretation."* [@wu2022]
+
+## Only sums?
+
+```{r}
+#| eval: false
+
+df <- aggregate(wt ~ cyl + am, FUN = max, data = mtcars)
+
+p <- ggplot(df, aes(cyl, wt, fill = am)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = pal_paired_3) +
+  labs(x = "Cylinders", y = "Maximum weight") +
+  guides(fill = "none")
+
+ggsave("./images/stacking-max.png", p)
+```
+
+:::{.incremental .no-bullet}
+- ![](./images/stacking-max.png)
+:::
+
+## Other types of summaries form part-whole relations...
+
+## Examples
+
+:::{.incremental}
+- Sum of sums is the sum of all cases
+- Maximum of maximums is the maximum of all cases
+- Product of products is the product of all cases
+- Convex hulls also combine this way
+- **BUT**
+- Average of averages != the grand mean
+- Median of medians != median of all cases
+- Variance of variances != variance of all cases
+:::
+
+## Code examples
+
+```{r}
+#| echo: true
+x <- c(1, 3, 9)
+y <- c(4, 2, 1)
+z <- c(7, 4, 3)
+```
+
+<br>
+
+```{r}
+#| echo: true
+c(sum(c(x, y, z)), sum(c(x, sum(c(y, z)))))
+```
+
+<br>
+
+```{r}
+#| echo: true
+c(max(c(x, y, z)), max(c(x, max(c(y, z)))))
+```
+
+<br>
+
+```{r}
+#| echo: true
+c(mean(c(x, y, z)), mean(c(x, mean(c(y, z)))))
+```
+
+## Set union behaves like this as well...
+
+```{r}
+#| echo: true
+x <- c(1, 3, 9)
+y <- c(4, 2, 1)
+z <- c(7, 4, 3)
+```
+
+<br>
+
+```{r}
+#| echo: true
+c(x, y, z)
+```
+
+<br>
+
+```{r}
+#| echo: true
+c(x, c(y, z))
+```
+
+<br>
+
+```{r}
+#| echo: true
+c(c(x, y), z)
+```
+
+## Dataframes as sets of rows...
+
+```{r}
+#| echo: true
+
+x <- data.frame(group = c("A", "B"), value = c(1, 3))
+y <- data.frame(group = c("B", "B"), value = c(6, 4))
+z <- data.frame(group = c("A", "C"), value = c(7, 4))
+```
+
+<br>
+
+```{r}
+#| echo: true
+dplyr::glimpse(rbind(x, y, z))
+```
+
+<br>
+
+```{r}
+#| echo: true
+dplyr::glimpse(rbind(x, rbind(y, z)))
+```
+
+## Part-whole relations and set union {.center .middle}
+
+:::{.incremental .no-bullet}
+- *If we split our data into parts,*
+- *and compute summary statistics on these parts,*
+- *and want to combine the summaries back together,*
+- *then the summaries need to behave like set union.*
+:::
+
+## What does this *really* mean? {.center .middle}
+
+
+
+
+
+## References 
+

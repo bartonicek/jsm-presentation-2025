@@ -285,6 +285,7 @@ Adam Bartonicek
 <li class="fragment">Declarative</li>
 <li class="fragment">Modular (mix and match)</li>
 <li class="fragment">Recipes, not taxonomies</li>
+<li class="fragment">Comprehensive (?)</li>
 </ul>
 </div>
 </section>
@@ -292,8 +293,8 @@ Adam Bartonicek
 <h2><span class="citation" data-cites="wilkinson2012">Wilkinson (<a href="#/references" role="doc-biblioref" onclick="">2012</a>)</span></h2>
 <div>
 <ul>
-<li class="fragment"><em>“This system cannot produce a meaningless graphic, however. This is a strong claim, vulnerable to a single counter-example. It is a claim based on the formal rules of the system, however, not on the evaluation of specific graphics it may produce.”</em> (pp.&nbsp;15)</li>
-<li class="fragment"><em>“Some of the combinations of graphs and statistical methods may be degenerate or bizarre, but there is no moral reason to restrict them.”</em> (pp.&nbsp;112)</li>
+<li class="fragment"><em>“This system <strong>cannot produce a meaningless graphic</strong>, however. This is a strong claim, vulnerable to a single counter-example. It is a claim based on the formal rules of the system, however, not on the evaluation of specific graphics it may produce.”</em> (pp.&nbsp;15)</li>
+<li class="fragment"><em>“Some of the combinations of graphs and statistical methods may be <strong>degenerate</strong> or <strong>bizarre</strong>, but there is no moral reason to restrict them.”</em> (pp.&nbsp;112)</li>
 </ul>
 </div>
 </section>
@@ -393,11 +394,11 @@ Adam Bartonicek
 <h2></h2>
 
 <img data-src="./images/stacking-vs-dodging.png" class="r-stretch"></section>
-<section id="part-whole-relations-are-great-for-interactive-graphics" class="slide level2 center middle">
-<h2>Part-whole relations are great for interactive graphics…</h2>
+<section id="highlighting-parts-of-objects-is-a-very-convenient-model" class="slide level2 center middle">
+<h2>Highlighting <em>parts</em> of objects is a very convenient model…</h2>
 </section>
-<section id="however-not-always-possible" class="slide level2 center middle">
-<h2>However, not always possible…</h2>
+<section id="however-part-whole-relations-must-be-well-defined" class="slide level2 center middle">
+<h2>However, part-whole relations must be well defined…</h2>
 </section>
 <section id="section-7" class="slide level2 center middle smaller">
 <h2></h2>
@@ -407,16 +408,21 @@ Adam Bartonicek
 <li><p><em>“[…] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which can easily lead to misinterpretation.”</em> <span class="citation" data-cites="wu2022">(<a href="#/references" role="doc-biblioref" onclick="">Wu 2022</a>)</span></p></li>
 </ul>
 </section>
-<section id="only-sums" class="slide level2">
+<section id="only-sums" class="slide level2 center middle">
 <h2>Only sums?</h2>
-<div class="no-bullet">
+</section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+
+<img data-src="./images/stacking-max.png" class="r-stretch"></section>
+<section id="only-sums-1" class="slide level2 center middle">
+<h2>Only sums?</h2>
+<div>
 <ul>
-<li class="fragment"><img data-src="./images/stacking-max.png"></li>
+<li class="fragment">Sums preserve part-whole relations</li>
+<li class="fragment">But some other summary statistics do as well!</li>
 </ul>
 </div>
-</section>
-<section id="other-types-of-summaries-form-part-whole-relations" class="slide level2">
-<h2>Other types of summaries form part-whole relations…</h2>
 </section>
 <section id="examples" class="slide level2">
 <h2>Examples</h2>
@@ -425,7 +431,7 @@ Adam Bartonicek
 <li class="fragment">Sum of sums is the sum of all cases</li>
 <li class="fragment">Maximum of maximums is the maximum of all cases</li>
 <li class="fragment">Product of products is the product of all cases</li>
-<li class="fragment">Convex hulls also combine this way</li>
+<li class="fragment">Other: convex hulls, vector norms, string concatenation</li>
 <li class="fragment"><strong>BUT</strong></li>
 <li class="fragment">Average of averages != the grand mean</li>
 <li class="fragment">Median of medians != median of all cases</li>
@@ -437,28 +443,28 @@ Adam Bartonicek
 <h2>Code examples</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">9</span>)</span>
-<span id="cb3-2"><a href=""></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb3-2"><a href=""></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">8</span>)</span>
 <span id="cb3-3"><a href=""></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">c</span>(<span class="fu">sum</span>(<span class="fu">c</span>(x, y, z)), <span class="fu">sum</span>(<span class="fu">c</span>(x, <span class="fu">sum</span>(<span class="fu">c</span>(y, z)))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">c</span>(<span class="fu">sum</span>(<span class="fu">c</span>(x, y, z)), <span class="fu">sum</span>(<span class="fu">c</span>(<span class="fu">sum</span>(x), <span class="fu">sum</span>(y), <span class="fu">sum</span>(z))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 34 34</code></pre>
+<pre><code>[1] 42 42</code></pre>
 </div>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">c</span>(<span class="fu">max</span>(<span class="fu">c</span>(x, y, z)), <span class="fu">max</span>(<span class="fu">c</span>(x, <span class="fu">max</span>(<span class="fu">c</span>(y, z)))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">c</span>(<span class="fu">max</span>(<span class="fu">c</span>(x, y, z)), <span class="fu">max</span>(<span class="fu">c</span>(<span class="fu">max</span>(x), <span class="fu">max</span>(y), <span class="fu">max</span>(z))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9 9</code></pre>
 </div>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">c</span>(<span class="fu">mean</span>(<span class="fu">c</span>(x, y, z)), <span class="fu">mean</span>(<span class="fu">c</span>(x, <span class="fu">mean</span>(<span class="fu">c</span>(y, z)))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">c</span>(<span class="fu">mean</span>(<span class="fu">c</span>(x, y, z)), <span class="fu">mean</span>(<span class="fu">c</span>(<span class="fu">mean</span>(x), <span class="fu">mean</span>(y), <span class="fu">mean</span>(z))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.777778 4.125000</code></pre>
+<pre><code>[1] 4.20 4.25</code></pre>
 </div>
 </div>
 </section>
@@ -466,28 +472,28 @@ Adam Bartonicek
 <h2>Set union behaves like this as well…</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">9</span>)</span>
-<span id="cb10-2"><a href=""></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb10-2"><a href=""></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">8</span>)</span>
 <span id="cb10-3"><a href=""></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">c</span>(x, y, z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 3 9 4 2 1 7 4 3</code></pre>
+<pre><code> [1] 1 3 9 4 2 1 8 7 4 3</code></pre>
 </div>
 </div>
 <p><br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">c</span>(x, <span class="fu">c</span>(y, z))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 3 9 4 2 1 7 4 3</code></pre>
+<pre><code> [1] 1 3 9 4 2 1 8 7 4 3</code></pre>
 </div>
 </div>
 <p><br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">c</span>(<span class="fu">c</span>(x, y), z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 3 9 4 2 1 7 4 3</code></pre>
+<pre><code> [1] 1 3 9 4 2 1 8 7 4 3</code></pre>
 </div>
 </div>
 </section>
@@ -495,8 +501,8 @@ Adam Bartonicek
 <h2>Dataframes as sets of rows…</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>), <span class="at">value =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
-<span id="cb17-2"><a href=""></a>y <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"B"</span>, <span class="st">"B"</span>), <span class="at">value =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
-<span id="cb17-3"><a href=""></a>z <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"C"</span>), <span class="at">value =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-2"><a href=""></a>y <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"B"</span>, <span class="st">"B"</span>), <span class="at">value =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">4</span>))</span>
+<span id="cb17-3"><a href=""></a>z <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"C"</span>), <span class="at">value =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="cell">
@@ -505,7 +511,7 @@ Adam Bartonicek
 <pre><code>Rows: 6
 Columns: 2
 $ group &lt;chr&gt; "A", "B", "B", "B", "A", "C"
-$ value &lt;dbl&gt; 1, 3, 6, 4, 7, 4</code></pre>
+$ value &lt;dbl&gt; 1, 3, 9, 4, 2, 4</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -515,24 +521,62 @@ $ value &lt;dbl&gt; 1, 3, 6, 4, 7, 4</code></pre>
 <pre><code>Rows: 6
 Columns: 2
 $ group &lt;chr&gt; "A", "B", "B", "B", "A", "C"
-$ value &lt;dbl&gt; 1, 3, 6, 4, 7, 4</code></pre>
+$ value &lt;dbl&gt; 1, 3, 9, 4, 2, 4</code></pre>
 </div>
 </div>
 </section>
-<section id="part-whole-relations-and-set-union" class="slide level2 center middle">
-<h2>Part-whole relations and set union</h2>
-<div class="no-bullet">
+<section id="set-union-and-part-whole-relations" class="slide level2 center middle">
+<h2>Set union and part-whole relations</h2>
+<div>
 <ul>
-<li class="fragment"><em>If we split our data into parts,</em></li>
-<li class="fragment"><em>and compute summary statistics on these parts,</em></li>
-<li class="fragment"><em>and want to combine the summaries back together,</em></li>
-<li class="fragment"><em>then the summaries need to behave like set union.</em></li>
+<li class="fragment">Set union is the essence of part-whole relations</li>
+<li class="fragment">The whole should be equal to the “sum” of its parts</li>
+<li class="fragment">Not more or less</li>
 </ul>
 </div>
 </section>
-<section id="what-does-this-realy-mean" class="slide level2 center middle">
-<h2>What does this <em>realy</em> mean?</h2>
+<section id="part-whole-relations-and-data-viz" class="slide level2 center middle">
+<h2>Part-whole relations and data viz</h2>
+<div>
+<ol type="1">
+<li class="fragment"><em>Split our data into parts</em></li>
+<li class="fragment"><em>Compute summary statistics on these parts</em></li>
+<li class="fragment"><strong><em>(Combine the summaries back together)</em></strong></li>
+<li class="fragment"><em>Render</em></li>
+</ol>
+</div>
 </section>
+<section id="if-we-want-to-meaningfully-combine-summaries-they-must-behave-like-set-union" class="slide level2 center middle">
+<h2>If we want to meaningfully combine summaries, they must behave like set union…</h2>
+</section>
+<section id="what-does-that-really-mean" class="slide level2 center middle">
+<h2>What does that <em>really</em> mean?</h2>
+</section>
+<section id="set-union-properties" class="slide level2 center middle smaller">
+<h2>Set union: Properties</h2>
+<ul>
+<li>Set union has several mathematical properties</li>
+<li><strong>Associativity</strong>: <span class="math inline">\(A \cup (B \cup C) = (A \cup B) \cup C = A \cup B \cup C\)</span></li>
+<li><strong>Unitality</strong>: <span class="math inline">\(A \cup \varnothing = \varnothing \cup A = A\)</span></li>
+</ul>
+</section>
+<section id="monoids" class="slide level2 smaller">
+<h2>Monoids</h2>
+<ul>
+<li>Monoids are a fundamental concept in category theory<sup>1</sup></li>
+<li>A monoid <span class="math inline">\((X, \otimes, e)\)</span> is a tuple consisting of:
+<ul>
+<li>A set <span class="math inline">\(X\)</span></li>
+<li>A binary operation <span class="math inline">\(\otimes\)</span></li>
+<li>A neutral element <span class="math inline">\(e\)</span></li>
+</ul></li>
+<li>Such that, for all <span class="math inline">\(x, y, z \in X\)</span>, we have:
+<ul>
+<li>Associativity: <span class="math inline">\((x \otimes y) \otimes z = x \otimes (y \otimes z) = x \otimes y \otimes z\)</span></li>
+<li>Unitality: <span class="math inline">\(x \otimes e = e \otimes x = x\)</span></li>
+</ul></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>see e.g. <span class="citation" data-cites="fong2019">Fong and Spivak (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span>; <span class="citation" data-cites="lawvere2009">Lawvere and Schanuel (<a href="#/references" role="doc-biblioref" onclick="">2009</a>)</span>; <span class="citation" data-cites="milewski2018">Milewski (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></p></li></ol></aside></section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 
@@ -543,8 +587,17 @@ Becker, Richard A, and William S Cleveland. 1987. <span>“Brushing Scatterplots
 <div id="ref-buja1996" class="csl-entry" role="listitem">
 Buja, Andreas, Dianne Cook, and Deborah F Swayne. 1996. <span>“Interactive High-Dimensional Data Visualization.”</span> <em>Journal of Computational and Graphical Statistics</em> 5 (1): 78–99.
 </div>
+<div id="ref-fong2019" class="csl-entry" role="listitem">
+Fong, Brendan, and David I Spivak. 2019. <em>An Invitation to Applied Category Theory: Seven Sketches in Compositionality</em>. Cambridge University Press.
+</div>
 <div id="ref-heer2012" class="csl-entry" role="listitem">
 Heer, Jeffrey, and Ben Shneiderman. 2012. <span>“Interactive Dynamics for Visual Analysis: A Taxonomy of Tools That Support the Fluent and Flexible Use of Visualizations.”</span> <em>Queue</em> 10 (2): 30–55.
+</div>
+<div id="ref-lawvere2009" class="csl-entry" role="listitem">
+Lawvere, F William, and Stephen H Schanuel. 2009. <em>Conceptual Mathematics: A First Introduction to Categories</em>. Cambridge University Press.
+</div>
+<div id="ref-milewski2018" class="csl-entry" role="listitem">
+Milewski, Bartosz. 2018. <em>Category Theory for Programmers</em>. Blurb.
 </div>
 <div id="ref-sievert2020" class="csl-entry" role="listitem">
 Sievert, Carson. 2020. <em>Interactive Web-Based Data Visualization with r, Plotly, and Shiny</em>. Chapman; Hall/CRC.

@@ -114,7 +114,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto-fe06ff972887ad74832a5af78d0b2d02.css">
+  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto-d5e2867ed9d008e6d6df48f580ceb36f.css">
   <link href="presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -646,10 +646,10 @@ $ value &lt;dbl&gt; 1, 3, 9, 4, 2, 4</code></pre>
 <h2>Groups and inverses</h2>
 <div>
 <ul>
-<li class="fragment">To recover information about parts, we also need an inverse operator <span class="math inline">\(\otimes^{-1}\)</span> such that: <span class="math display">\[(x \otimes y) \otimes^{-1} y = x\]</span></li>
+<li class="fragment">To recover information about parts, we also require an inverse operator <span class="math inline">\(\otimes^{-1}\)</span> such that: <span class="math display">\[(x \otimes y) \otimes^{-1} y = x\]</span></li>
 <li class="fragment">Analogue to set difference: <span class="math inline">\((A \cup B) \setminus B = A\)</span></li>
 <li class="fragment">A monoid with an inverse is known as a <em>group</em></li>
-<li class="fragment">(from abstract algebra/group theory)</li>
+<li class="fragment">(From abstract algebra/group theory)</li>
 </ul>
 </div>
 </section>
@@ -675,17 +675,52 @@ $ value &lt;dbl&gt; 1, 3, 9, 4, 2, 4</code></pre>
 <li class="fragment"><strong>Comparing smokers vs.&nbsp;the whole population</strong>
 <ul>
 <li class="fragment">Smokers are a “special” group nested within the pop.</li>
-<li class="fragment">Could use monoids</li>
+<li class="fragment">Can use monoids as summary statistics and combine</li>
 <li class="fragment">E.g. compare maximum lung volume of smokers vs.&nbsp;all</li>
 </ul></li>
 <li class="fragment"><strong>Comparing political parties</strong>
 <ul>
-<li class="fragment">Truly disjoint</li>
-<li class="fragment">Does not make sense to combine into nested subsets</li>
-<li class="fragment">Should use groups</li>
+<li class="fragment">Truly disjoint, does not make sense to nest</li>
+<li class="fragment">Should use groups as summary statistics if combining</li>
 </ul></li>
 </ul>
 </div>
+</section>
+<section id="other-properties-to-think-about" class="slide level2">
+<h2>Other properties to think about…</h2>
+<div>
+<ul>
+<li class="fragment">Monotonicity: do things only <em>grow</em> in one direction?</li>
+<li class="fragment">Commutativity: does row order matter?</li>
+<li class="fragment">(idempotence, distributivity, terminal objects, etc…)</li>
+</ul>
+</div>
+</section>
+<section id="back-to-gog" class="slide level2">
+<h2>Back to GoG</h2>
+<div>
+<ul>
+<li class="fragment">Started with the following quote:</li>
+<li class="fragment"><em>“Some of the combinations of graphs and statistical methods may be <strong>degenerate</strong> or <strong>bizarre</strong>, but there is no moral reason to restrict them.”</em> <span class="citation" data-cites="wilkinson2012">(<a href="#/references" role="doc-biblioref" onclick="">Wilkinson 2012, 112</a>)</span></li>
+<li class="fragment">= Plots with mapping that does not preserve structure</li>
+<li class="fragment">Conversely, <em>meaningful</em> plots are functors from the space of data to the space of graphics: <span class="math display">\[\text{Data} \to \text{Summaries} \to \text{Geometric objects}\]</span></li>
+</ul>
+</div>
+</section>
+<section id="conclusion" class="slide level2">
+<h2>Conclusion</h2>
+<div>
+<ul>
+<li class="fragment">GoG is a great model, however, room for refinement</li>
+<li class="fragment">Tension between modularity and preserving structure</li>
+<li class="fragment">Graphics and statistics are not independent</li>
+<li class="fragment">To draw objects composed of parts (e.g.&nbsp;highlighting), we need certain algebraic structure (monoids/groups)</li>
+</ul>
+</div>
+</section>
+<section id="section-9" class="slide level2 center middle larger">
+<h2></h2>
+<p><em>What we can <strong>do</strong> with a graphic is fundamentally determined by what the graphic <strong>is</strong></em></p>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>

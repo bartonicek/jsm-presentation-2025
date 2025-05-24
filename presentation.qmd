@@ -539,11 +539,11 @@ $$\max(x, 10) = 10$$
 ## Groups and inverses
 
 :::{.incremental}
-- To recover information about parts, we also need an inverse operator $\otimes^{-1}$ such that:
+- To recover information about parts, we also require an inverse operator $\otimes^{-1}$ such that:
 $$(x \otimes y) \otimes^{-1} y = x$$
 - Analogue to set difference: $(A \cup B) \setminus B = A$
 - A monoid with an inverse is known as a *group* 
-- (from abstract algebra/group theory)
+- (From abstract algebra/group theory)
 :::
 
 ## Monoids vs. groups {.center .middle}
@@ -560,13 +560,44 @@ $$(x \otimes y) \otimes^{-1} y = x$$
 :::{.incremental}
 - **Comparing smokers vs. the whole population**
   - Smokers are a "special" group nested within the pop.
-  - Could use monoids
+  - Can use monoids as summary statistics and combine
   - E.g. compare maximum lung volume of smokers vs. all
 - **Comparing political parties**
-  - Truly disjoint
-  - Does not make sense to combine into nested subsets
-  - Should use groups
+  - Truly disjoint, does not make sense to nest
+  - Should use groups as summary statistics if combining
 :::
+
+## Other properties to think about...
+
+:::{.incremental}
+- Monotonicity: do things only *grow* in one direction?
+- Commutativity: does row order matter?
+- (idempotence, distributivity, terminal objects, etc...)
+:::
+
+## Back to GoG
+
+:::{.incremental}
+- Started with the following quote:
+- *"Some of the combinations of graphs and statistical methods may be **degenerate** or **bizarre**, but there is no moral reason to restrict them."* [@wilkinson2012, pp. 112]
+- = Plots with mapping that does not preserve structure
+- Conversely, *meaningful* plots are functors from the space of data to the space of graphics:
+$$\text{Data} \to \text{Summaries} \to \text{Geometric objects}$$
+:::
+
+## Conclusion
+
+:::{.incremental}
+- GoG is a great model, however, room for refinement
+- Tension between modularity and preserving structure
+- Graphics and statistics are not independent
+- To draw objects composed of parts (e.g. highlighting), we need certain algebraic structure (monoids/groups)
+:::
+
+
+## {.center .middle .larger}
+
+*What we can **do** with a graphic is fundamentally determined by what the graphic **is***
 
 ## References 
 

@@ -11,8 +11,16 @@ $presentation-h1-font-size: 2em;
   text-align: center;
 }
 
+.smaller-title h2 {
+  font-size: 1.25em;
+}
+
 .large {
   font-size: 1.5em;
+}
+
+.slightly-smaller {
+  font-size: 0.9em;
 }
 
 .no-bullet > ul > li {

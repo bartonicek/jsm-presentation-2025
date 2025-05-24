@@ -162,6 +162,7 @@ p1 <- ggplot(mtcars, aes(wt, mpg, col = selected)) +
             fill = NA, col = "grey60", lty = "dashed") +
   scale_color_manual(values = pal_paired_3) +
   guides(col = "none") +
+  labs(x = "Weight", y = "Mileage") +
   theme_bw(base_size = 12) +
   theme(panel.grid = element_blank(),
         plot.margin = unit(c(0, 0.5, 0, 0), units = "cm"))
@@ -169,6 +170,7 @@ p1 <- ggplot(mtcars, aes(wt, mpg, col = selected)) +
 p2 <- ggplot(mtcars, aes(cyl, fill = selected)) + 
   geom_bar(col = "white") + 
   guides(fill = "none") +
+  labs(x = "Cylinders", y = "Count") +
   theme_bw(base_size = 12) +
   theme(panel.grid = element_blank(),
         plot.margin = unit(c(0, 0, 0, 0.5), units = "cm"))
@@ -250,7 +252,7 @@ ggsave("./images/stacking-vs-dodging.png", p)
 
 - *"[...] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which can easily lead to misinterpretation."* [@wu2022]
 
-## Only sums? {.center .middle}
+## Only sums and counts? {.center .middle}
 
 ##
 
@@ -260,7 +262,7 @@ ggsave("./images/stacking-vs-dodging.png", p)
 df <- aggregate(wt ~ cyl + am, FUN = max, data = mtcars)
 
 p <- ggplot(df, aes(cyl, wt, fill = am)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity", col = "white") +
   scale_fill_manual(values = pal_paired_3) +
   labs(x = "Cylinders", y = "Maximum weight") +
   guides(fill = "none")
@@ -270,7 +272,7 @@ ggsave("./images/stacking-max.png", p)
 
 ![](./images/stacking-max.png)
 
-## Only sums? {.center .middle}
+## Beyond sums and counts {.center .middle}
 
 :::{.incremental}
 - Sums preserve part-whole relations
@@ -374,45 +376,197 @@ dplyr::glimpse(rbind(x, y, z))
 dplyr::glimpse(rbind(x, rbind(y, z)))
 ```
 
-## Set union and part-whole relations {.center .middle}
-
-:::{.incremental}
-- Set union is the essence of part-whole relations
-- The whole should be equal to the "sum" of its parts
-- Not more or less
-:::
-
-## Part-whole relations and data viz {.center .middle}
+## What we do when we visualize {.center .middle}
 
 :::{.incremental}
 1. *Split our data into parts*
 2. *Compute summary statistics on these parts*
 3. ***(Combine the summaries back together)***
-4. *Render*
+4. *Scale and render*
 :::
 
-## If we want to meaningfully combine summaries, they must behave like set union... {.center .middle}
+## When combining summaries, the composite should be a valid representation of the union of the underlying data... {.center .middle .smaller-title}
+
+## Therefore, our summaries must *behave* like set union! {.center .middle}
 
 ## What does that *really* mean? {.center .middle}
 
-## Set union: Properties {.center .middle .smaller}
+## Need some math... {.center .middle}
 
-- Set union has several mathematical properties
-- **Associativity**:
+## Set union: Properties {.center .middle}
+
+- Set union has several important mathematical properties
+- **Associative**:
 $A \cup (B \cup C) = (A \cup B) \cup C = A \cup B \cup C$
-- **Unitality**:
+- **Unital**:
 $A \cup \varnothing = \varnothing \cup A = A$
 
-## Monoids {.smaller}
+## Monoids
 
-- Monoids are a fundamental concept in category theory^[see e.g. @fong2019; @lawvere2009; @milewski2018]
-- A monoid $(X, \otimes, e)$ is a tuple consisting of:
-  - A set $X$
-  - A binary operation $\otimes$
-  - A neutral element $e$
-- Such that, for all $x, y, z \in X$, we have:
-  - Associativity: $(x \otimes y) \otimes z = x \otimes (y \otimes z) = x \otimes y \otimes z$
-  - Unitality: $x \otimes e = e \otimes x = x$
+:::{.incremental}
+- Monoids are a fundamental concept from category theory^[see e.g. @fong2019; @lawvere2009; @milewski2018]
+- A monoid $(X, \otimes, e)$ is a tuple consisting of a set $X$, a binary operation $\otimes$, and a neutral element $e$
+- Such that, for all $x, y, z \in X$, the operation is:
+  - **Associative**: $(x \otimes y) \otimes z = x \otimes (y \otimes z) = x \otimes y \otimes z$
+  - **Unital**: $x \otimes e = e \otimes x = x$
+:::
+  
+## Why are monoids useful? {.slightly-smaller}
+
+:::{.incremental}
+- Suppose $F$ amounts to summarizing a set $X$ with a monoid by repeatedly applying $\otimes$, $F(X) = x_1 \otimes x_2 \otimes \ldots \otimes x_n$
+- Now, suppose we summarize two sets $X$ and $Y$ and combine the summaries:
+$$\begin{align} F(X) \otimes F(Y) &= (x_1 \otimes x_2 \otimes \ldots \otimes x_n) \otimes (y_1 \otimes y_2 \otimes \ldots \otimes y_n) \\
+&= x_1 \otimes x_2 \otimes \ldots \otimes x_n \otimes y_1 \otimes y_2 \otimes \ldots \otimes y_n \\
+&= F(X \cup Y)
+\end{align}
+$$
+:::
+
+## With monoids, combining summaries is the same as summarizing unions! {.center .middle}
+
+## Summarizing with monoids
+
+:::{.incremental}
+- Special case of a functor (= structure-preserving mapping)
+- Monoids and functors are well-known in FP^[See e.g. @milewski2018]
+- The set-union-preserving property of monoids has been written about in distributed computing^[@lin2013; @parent2018; @fegaras2017] and relational database theory^[@gibbons2018] literature (but not data viz)
+:::
+
+## Monoids and linked selection
+
+- Since monoids preserve set union, we can use them to display single-group linked selection:
+
+```{r}
+limits <- c(2.55, 12, 4.25, 26)
+mtcars$selected <- with(mtcars, wt > limits[1] & mpg > limits[2]
+                        & wt < limits[3] & mpg < limits[4])
+
+p1 <- ggplot(mtcars, aes(wt, mpg, col = selected)) + 
+  geom_point() +
+  geom_rect(xmin = limits[1], xmax = limits[3], 
+            ymin = limits[2], ymax = limits[4],
+            fill = NA, col = "grey60", lty = "dashed") +
+  scale_color_manual(values = pal_paired_3) +
+  guides(col = "none") +
+  labs(x = "Weight", y = "Mileage") +
+  theme_bw(base_size = 12) +
+  theme(panel.grid = element_blank(),
+        plot.margin = unit(c(0, 0.5, 0, 0), units = "cm"))
+
+df <- aggregate(wt ~ cyl + selected, FUN = max, data = mtcars)
+
+p2 <- ggplot(df, aes(cyl, wt, fill = selected)) + 
+  geom_col(col = "white") + 
+  guides(fill = "none") +
+  theme_bw(base_size = 12) +
+  labs(x = "Cylinders", y = "Max weight") +
+  theme(panel.grid = element_blank(),
+        plot.margin = unit(c(0, 0, 0, 0.5), units = "cm"))
+
+p <- p1 + p2
+ggsave("./images/linked-selection2.png", width = 6.35, height = 2, units = "in")
+```
+
+![](./images/linked-selection2.png){height=250 fig-align="center"}
+
+$$F(\text{Selection}) \otimes F(\text{Rest}) = F(\text{Selection} \cup \text{Rest})$$
+
+## Convex hull as a monoid
+
+```{r}
+
+mtcars_selected <- subset(mtcars, selected)
+
+chull1 <- mtcars[with(mtcars, chull(wt, hp)), ]
+chull2 <- mtcars_selected[with(mtcars_selected, chull(wt, hp)), ]
+
+p1 <- ggplot(mtcars, aes(wt, mpg, col = selected)) + 
+  geom_point() +
+  geom_rect(xmin = limits[1], xmax = limits[3], 
+            ymin = limits[2], ymax = limits[4],
+            fill = NA, col = "grey60", lty = "dashed") +
+  scale_color_manual(values = pal_paired_3) +
+  guides(col = "none") +
+  labs(x = "Weight", y = "Mileage") +
+  theme_bw(base_size = 12) +
+  theme(panel.grid = element_blank(),
+        plot.margin = unit(c(0, 0.5, 0, 0), units = "cm"))
+
+p2 <- ggplot(mtcars, aes(wt, hp)) +
+  geom_polygon(data = chull1, fill = pal_paired_3[1]) +
+  geom_polygon(data = chull2, fill = pal_paired_3[2]) +
+  geom_point(mapping = aes(col = selected)) +
+  scale_color_manual(values = colorspace::darken(pal_paired_3, 0.3)) +
+  guides(col = "none") +
+  labs(x = "Weight", y = "Horsepower") +
+  theme_bw(base_size = 12) +
+  theme(panel.grid = element_blank(),
+        plot.margin = unit(c(0, 0.5, 0, 0), units = "cm"))
+
+p <- p1 + p2
+ggsave("./images/linked-selection3.png", width = 6.35, height = 3, units = "in")
+```
+
+![](./images/linked-selection3.png){fig-align="center"}
+
+## With multiple selection groups, things are a bit more nuanced... {.center .middle}
+
+## Combining multiple sets
+
+:::{.incremental}
+- Recall that $F(X) \otimes F(Y) = F(X \cup Y)$
+- If we combine summaries of multiple sets:
+$$\begin{align} 
+&F(X)  \\
+&F(X) \otimes F(Y) = F(X \cup Y) \\
+&F(X) \otimes F(Y) \otimes F(Z) = F(X \cup Y \cup Z) 
+\end{align}$$
+- *"Compare $X$ against $(X \cup Y)$ against $(X \cup Y \cup Z)$"*
+:::
+
+## What if we want to compare $X$ against $Y$ directly? {.center .middle}
+
+## Monoids can collapse information
+
+:::{.incremental}
+- There's no guarantee that we will be able to recover $F(X)$ from $F(X) \otimes F(Y) = F(X \cup Y)$
+- For example, suppose: 
+$$\max(x, 10) = 10$$
+- What is $x$? We don't know 
+:::
+
+## Groups and inverses
+
+:::{.incremental}
+- To recover information about parts, we also need an inverse operator $\otimes^{-1}$ such that:
+$$(x \otimes y) \otimes^{-1} y = x$$
+- Analogue to set difference: $(A \cup B) \setminus B = A$
+- A monoid with an inverse is known as a *group* 
+- (from abstract algebra/group theory)
+:::
+
+## Monoids vs. groups {.center .middle}
+
+:::{.incremental}
+- **Monoids**: compare nested subsets
+  - E.g. one "special" group against all cases
+- **Groups**: compare disjoint subsets
+  - E.g. multiple distinct groups
+:::
+
+## Interesting philosophically
+
+:::{.incremental}
+- **Comparing smokers vs. the whole population**
+  - Smokers are a "special" group nested within the pop.
+  - Could use monoids
+  - E.g. compare maximum lung volume of smokers vs. all
+- **Comparing political parties**
+  - Truly disjoint
+  - Does not make sense to combine into nested subsets
+  - Should use groups
+:::
 
 ## References 
 

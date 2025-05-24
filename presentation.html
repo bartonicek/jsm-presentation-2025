@@ -114,7 +114,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto-447360235a001fd42178a5d8cc10af1c.css">
+  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto-fe06ff972887ad74832a5af78d0b2d02.css">
   <link href="presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -408,15 +408,15 @@ Adam Bartonicek
 <li><p><em>“[…] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which can easily lead to misinterpretation.”</em> <span class="citation" data-cites="wu2022">(<a href="#/references" role="doc-biblioref" onclick="">Wu 2022</a>)</span></p></li>
 </ul>
 </section>
-<section id="only-sums" class="slide level2 center middle">
-<h2>Only sums?</h2>
+<section id="only-sums-and-counts" class="slide level2 center middle">
+<h2>Only sums and counts?</h2>
 </section>
 <section id="section-8" class="slide level2">
 <h2></h2>
 
 <img data-src="./images/stacking-max.png" class="r-stretch"></section>
-<section id="only-sums-1" class="slide level2 center middle">
-<h2>Only sums?</h2>
+<section id="beyond-sums-and-counts" class="slide level2 center middle">
+<h2>Beyond sums and counts</h2>
 <div>
 <ul>
 <li class="fragment">Sums preserve part-whole relations</li>
@@ -525,58 +525,168 @@ $ value &lt;dbl&gt; 1, 3, 9, 4, 2, 4</code></pre>
 </div>
 </div>
 </section>
-<section id="set-union-and-part-whole-relations" class="slide level2 center middle">
-<h2>Set union and part-whole relations</h2>
-<div>
-<ul>
-<li class="fragment">Set union is the essence of part-whole relations</li>
-<li class="fragment">The whole should be equal to the “sum” of its parts</li>
-<li class="fragment">Not more or less</li>
-</ul>
-</div>
-</section>
-<section id="part-whole-relations-and-data-viz" class="slide level2 center middle">
-<h2>Part-whole relations and data viz</h2>
+<section id="what-we-do-when-we-visualize" class="slide level2 center middle">
+<h2>What we do when we visualize</h2>
 <div>
 <ol type="1">
 <li class="fragment"><em>Split our data into parts</em></li>
 <li class="fragment"><em>Compute summary statistics on these parts</em></li>
 <li class="fragment"><strong><em>(Combine the summaries back together)</em></strong></li>
-<li class="fragment"><em>Render</em></li>
+<li class="fragment"><em>Scale and render</em></li>
 </ol>
 </div>
 </section>
-<section id="if-we-want-to-meaningfully-combine-summaries-they-must-behave-like-set-union" class="slide level2 center middle">
-<h2>If we want to meaningfully combine summaries, they must behave like set union…</h2>
+<section id="when-combining-summaries-the-composite-should-be-a-valid-representation-of-the-union-of-the-underlying-data" class="slide level2 center middle smaller-title">
+<h2>When combining summaries, the composite should be a valid representation of the union of the underlying data…</h2>
+</section>
+<section id="therefore-our-summaries-must-behave-like-set-union" class="slide level2 center middle">
+<h2>Therefore, our summaries must <em>behave</em> like set union!</h2>
 </section>
 <section id="what-does-that-really-mean" class="slide level2 center middle">
 <h2>What does that <em>really</em> mean?</h2>
 </section>
-<section id="set-union-properties" class="slide level2 center middle smaller">
+<section id="need-some-math" class="slide level2 center middle">
+<h2>Need some math…</h2>
+</section>
+<section id="set-union-properties" class="slide level2 center middle">
 <h2>Set union: Properties</h2>
 <ul>
-<li>Set union has several mathematical properties</li>
-<li><strong>Associativity</strong>: <span class="math inline">\(A \cup (B \cup C) = (A \cup B) \cup C = A \cup B \cup C\)</span></li>
-<li><strong>Unitality</strong>: <span class="math inline">\(A \cup \varnothing = \varnothing \cup A = A\)</span></li>
+<li>Set union has several important mathematical properties</li>
+<li><strong>Associative</strong>: <span class="math inline">\(A \cup (B \cup C) = (A \cup B) \cup C = A \cup B \cup C\)</span></li>
+<li><strong>Unital</strong>: <span class="math inline">\(A \cup \varnothing = \varnothing \cup A = A\)</span></li>
 </ul>
 </section>
-<section id="monoids" class="slide level2 smaller">
+<section id="monoids" class="slide level2">
 <h2>Monoids</h2>
+<div>
 <ul>
-<li>Monoids are a fundamental concept in category theory<sup>1</sup></li>
-<li>A monoid <span class="math inline">\((X, \otimes, e)\)</span> is a tuple consisting of:
+<li class="fragment">Monoids are a fundamental concept from category theory<sup>1</sup></li>
+<li class="fragment">A monoid <span class="math inline">\((X, \otimes, e)\)</span> is a tuple consisting of a set <span class="math inline">\(X\)</span>, a binary operation <span class="math inline">\(\otimes\)</span>, and a neutral element <span class="math inline">\(e\)</span></li>
+<li class="fragment">Such that, for all <span class="math inline">\(x, y, z \in X\)</span>, the operation is:
 <ul>
-<li>A set <span class="math inline">\(X\)</span></li>
-<li>A binary operation <span class="math inline">\(\otimes\)</span></li>
-<li>A neutral element <span class="math inline">\(e\)</span></li>
-</ul></li>
-<li>Such that, for all <span class="math inline">\(x, y, z \in X\)</span>, we have:
-<ul>
-<li>Associativity: <span class="math inline">\((x \otimes y) \otimes z = x \otimes (y \otimes z) = x \otimes y \otimes z\)</span></li>
-<li>Unitality: <span class="math inline">\(x \otimes e = e \otimes x = x\)</span></li>
+<li class="fragment"><strong>Associative</strong>: <span class="math inline">\((x \otimes y) \otimes z = x \otimes (y \otimes z) = x \otimes y \otimes z\)</span></li>
+<li class="fragment"><strong>Unital</strong>: <span class="math inline">\(x \otimes e = e \otimes x = x\)</span></li>
 </ul></li>
 </ul>
+</div>
 <aside><ol class="aside-footnotes"><li id="fn2"><p>see e.g. <span class="citation" data-cites="fong2019">Fong and Spivak (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span>; <span class="citation" data-cites="lawvere2009">Lawvere and Schanuel (<a href="#/references" role="doc-biblioref" onclick="">2009</a>)</span>; <span class="citation" data-cites="milewski2018">Milewski (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></p></li></ol></aside></section>
+<section id="why-are-monoids-useful" class="slide level2 slightly-smaller">
+<h2>Why are monoids useful?</h2>
+<div>
+<ul>
+<li class="fragment">Suppose <span class="math inline">\(F\)</span> amounts to summarizing a set <span class="math inline">\(X\)</span> with a monoid by repeatedly applying <span class="math inline">\(\otimes\)</span>, <span class="math inline">\(F(X) = x_1 \otimes x_2 \otimes \ldots \otimes x_n\)</span></li>
+<li class="fragment">Now, suppose we summarize two sets <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> and combine the summaries: <span class="math display">\[\begin{align} F(X) \otimes F(Y) &amp;= (x_1 \otimes x_2 \otimes \ldots \otimes x_n) \otimes (y_1 \otimes y_2 \otimes \ldots \otimes y_n) \\
+&amp;= x_1 \otimes x_2 \otimes \ldots \otimes x_n \otimes y_1 \otimes y_2 \otimes \ldots \otimes y_n \\
+&amp;= F(X \cup Y)
+\end{align}
+\]</span></li>
+</ul>
+</div>
+</section>
+<section id="with-monoids-combining-summaries-is-the-same-as-summarizing-unions" class="slide level2 center middle">
+<h2>With monoids, combining summaries is the same as summarizing unions!</h2>
+</section>
+<section id="summarizing-with-monoids" class="slide level2">
+<h2>Summarizing with monoids</h2>
+<div>
+<ul>
+<li class="fragment">Special case of a functor (= structure-preserving mapping)</li>
+<li class="fragment">Monoids and functors are well-known in FP<sup>1</sup></li>
+<li class="fragment">The set-union-preserving property of monoids has been written about in distributed computing<sup>2</sup> and relational database theory<sup>3</sup> literature (but not data viz)</li>
+</ul>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>See e.g. <span class="citation" data-cites="milewski2018">Milewski (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></p></li><li id="fn4"><p><span class="citation" data-cites="lin2013">Lin (<a href="#/references" role="doc-biblioref" onclick="">2013</a>)</span>; <span class="citation" data-cites="parent2018">Parent (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span>; <span class="citation" data-cites="fegaras2017">Fegaras (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span></p></li><li id="fn5"><p><span class="citation" data-cites="gibbons2018">Gibbons et al. (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></p></li></ol></aside></section>
+<section id="monoids-and-linked-selection" class="slide level2">
+<h2>Monoids and linked selection</h2>
+<ul>
+<li>Since monoids preserve set union, we can use them to display single-group linked selection:</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/linked-selection2.png" class="quarto-figure quarto-figure-center" height="250"></p>
+</figure>
+</div>
+<p><span class="math display">\[F(\text{Selection}) \otimes F(\text{Rest}) = F(\text{Selection} \cup \text{Rest})\]</span></p>
+</section>
+<section id="convex-hull-as-a-monoid" class="slide level2">
+<h2>Convex hull as a monoid</h2>
+
+<img data-src="./images/linked-selection3.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="with-multiple-selection-groups-things-are-a-bit-more-nuanced" class="slide level2 center middle">
+<h2>With multiple selection groups, things are a bit more nuanced…</h2>
+</section>
+<section id="combining-multiple-sets" class="slide level2">
+<h2>Combining multiple sets</h2>
+<div>
+<ul>
+<li class="fragment">Recall that <span class="math inline">\(F(X) \otimes F(Y) = F(X \cup Y)\)</span></li>
+<li class="fragment">If we combine summaries of multiple sets: <span class="math display">\[\begin{align}
+&amp;F(X)  \\
+&amp;F(X) \otimes F(Y) = F(X \cup Y) \\
+&amp;F(X) \otimes F(Y) \otimes F(Z) = F(X \cup Y \cup Z)
+\end{align}\]</span></li>
+<li class="fragment"><em>“Compare <span class="math inline">\(X\)</span> against <span class="math inline">\((X \cup Y)\)</span> against <span class="math inline">\((X \cup Y \cup Z)\)</span>”</em></li>
+</ul>
+</div>
+</section>
+<section id="what-if-we-want-to-compare-x-against-y-directly" class="slide level2 center middle">
+<h2>What if we want to compare <span class="math inline">\(X\)</span> against <span class="math inline">\(Y\)</span> directly?</h2>
+</section>
+<section id="monoids-can-collapse-information" class="slide level2">
+<h2>Monoids can collapse information</h2>
+<div>
+<ul>
+<li class="fragment">There’s no guarantee that we will be able to recover <span class="math inline">\(F(X)\)</span> from <span class="math inline">\(F(X) \otimes F(Y) = F(X \cup Y)\)</span></li>
+<li class="fragment">For example, suppose: <span class="math display">\[\max(x, 10) = 10\]</span></li>
+<li class="fragment">What is <span class="math inline">\(x\)</span>? We don’t know</li>
+</ul>
+</div>
+</section>
+<section id="groups-and-inverses" class="slide level2">
+<h2>Groups and inverses</h2>
+<div>
+<ul>
+<li class="fragment">To recover information about parts, we also need an inverse operator <span class="math inline">\(\otimes^{-1}\)</span> such that: <span class="math display">\[(x \otimes y) \otimes^{-1} y = x\]</span></li>
+<li class="fragment">Analogue to set difference: <span class="math inline">\((A \cup B) \setminus B = A\)</span></li>
+<li class="fragment">A monoid with an inverse is known as a <em>group</em></li>
+<li class="fragment">(from abstract algebra/group theory)</li>
+</ul>
+</div>
+</section>
+<section id="monoids-vs.-groups" class="slide level2 center middle">
+<h2>Monoids vs.&nbsp;groups</h2>
+<div>
+<ul>
+<li class="fragment"><strong>Monoids</strong>: compare nested subsets
+<ul>
+<li class="fragment">E.g. one “special” group against all cases</li>
+</ul></li>
+<li class="fragment"><strong>Groups</strong>: compare disjoint subsets
+<ul>
+<li class="fragment">E.g. multiple distinct groups</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="interesting-philosophically" class="slide level2">
+<h2>Interesting philosophically</h2>
+<div>
+<ul>
+<li class="fragment"><strong>Comparing smokers vs.&nbsp;the whole population</strong>
+<ul>
+<li class="fragment">Smokers are a “special” group nested within the pop.</li>
+<li class="fragment">Could use monoids</li>
+<li class="fragment">E.g. compare maximum lung volume of smokers vs.&nbsp;all</li>
+</ul></li>
+<li class="fragment"><strong>Comparing political parties</strong>
+<ul>
+<li class="fragment">Truly disjoint</li>
+<li class="fragment">Does not make sense to combine into nested subsets</li>
+<li class="fragment">Should use groups</li>
+</ul></li>
+</ul>
+</div>
+</section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 
@@ -587,8 +697,14 @@ Becker, Richard A, and William S Cleveland. 1987. <span>“Brushing Scatterplots
 <div id="ref-buja1996" class="csl-entry" role="listitem">
 Buja, Andreas, Dianne Cook, and Deborah F Swayne. 1996. <span>“Interactive High-Dimensional Data Visualization.”</span> <em>Journal of Computational and Graphical Statistics</em> 5 (1): 78–99.
 </div>
+<div id="ref-fegaras2017" class="csl-entry" role="listitem">
+Fegaras, Leonidas. 2017. <span>“An Algebra for Distributed Big Data Analytics.”</span> <em>Journal of Functional Programming</em> 27: e27.
+</div>
 <div id="ref-fong2019" class="csl-entry" role="listitem">
 Fong, Brendan, and David I Spivak. 2019. <em>An Invitation to Applied Category Theory: Seven Sketches in Compositionality</em>. Cambridge University Press.
+</div>
+<div id="ref-gibbons2018" class="csl-entry" role="listitem">
+Gibbons, Jeremy, Fritz Henglein, Ralf Hinze, and Nicolas Wu. 2018. <span>“Relational Algebra by Way of Adjunctions.”</span> <em>Proceedings of the ACM on Programming Languages</em> 2 (ICFP): 1–28.
 </div>
 <div id="ref-heer2012" class="csl-entry" role="listitem">
 Heer, Jeffrey, and Ben Shneiderman. 2012. <span>“Interactive Dynamics for Visual Analysis: A Taxonomy of Tools That Support the Fluent and Flexible Use of Visualizations.”</span> <em>Queue</em> 10 (2): 30–55.
@@ -596,8 +712,14 @@ Heer, Jeffrey, and Ben Shneiderman. 2012. <span>“Interactive Dynamics for Visu
 <div id="ref-lawvere2009" class="csl-entry" role="listitem">
 Lawvere, F William, and Stephen H Schanuel. 2009. <em>Conceptual Mathematics: A First Introduction to Categories</em>. Cambridge University Press.
 </div>
+<div id="ref-lin2013" class="csl-entry" role="listitem">
+Lin, Jimmy. 2013. <span>“Monoidify! Monoids as a Design Principle for Efficient Mapreduce Algorithms.”</span> <em>arXiv Preprint arXiv:1304.7544</em>.
+</div>
 <div id="ref-milewski2018" class="csl-entry" role="listitem">
 Milewski, Bartosz. 2018. <em>Category Theory for Programmers</em>. Blurb.
+</div>
+<div id="ref-parent2018" class="csl-entry" role="listitem">
+Parent, Sean. 2018. <span>“<span>Generic Programming</span>.”</span> Pacific++. <a href="https://www.youtube.com/watch?v=iwJpxWHuZQY">https://www.youtube.com/watch?v=iwJpxWHuZQY</a>.
 </div>
 <div id="ref-sievert2020" class="csl-entry" role="listitem">
 Sievert, Carson. 2020. <em>Interactive Web-Based Data Visualization with r, Plotly, and Shiny</em>. Chapman; Hall/CRC.

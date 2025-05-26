@@ -1,6 +1,6 @@
 Adam is a doctoral candidate in statistics at The University of Auckland, New Zealand.
 His journey into statistics and data science began as an applied researcher in psychology, 
-analyzing survey data and teaching pigeons how to play tic-tac-toe. 
+where he analyzed survey data and tried to teach pigeons how to play tic-tac-toe. 
 Ultimately, he discovered his true passion lay in the field of statistics. 
 Currently, his research centers on interactive data visualization, 
 particularly the interplay between user interaction and the algebraic properties of plots.

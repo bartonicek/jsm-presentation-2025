@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.42">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.31">
 
   <meta name="author" content="Adam Bartonicek">
   <title>Interactive Data Exploration with Plotscaper</title>
@@ -29,8 +29,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -114,7 +115,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-d5e2867ed9d008e6d6df48f580ceb36f.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-ddcccb16b894f771d705f6925acb2afe.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -235,9 +236,6 @@ Adam Bartonicek
 </section>
 <section id="section" class="slide level2">
 <h2></h2>
-<div>
-
-</div>
 <div class="center middle smaller-gap quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
@@ -279,24 +277,18 @@ Adam Bartonicek
 </section>
 <section id="key-properties-of-gog" class="slide level2 center">
 <h2>Key properties of GoG</h2>
-<div>
 <ul>
 <li class="fragment">Algebraic</li>
-<li class="fragment">Declarative</li>
-<li class="fragment">Modular (mix and match)</li>
-<li class="fragment">Recipes, not taxonomies</li>
+<li class="fragment">Declarative (recipes, not taxonomies)</li>
 <li class="fragment">Comprehensive (?)</li>
 </ul>
-</div>
 </section>
 <section id="wilkinson2012" class="slide level2 center">
 <h2><span class="citation" data-cites="wilkinson2012">Wilkinson (<a href="#/references" role="doc-biblioref" onclick="">2012</a>)</span></h2>
-<div>
 <ul>
 <li class="fragment"><em>“This system <strong>cannot produce a meaningless graphic</strong>, however. This is a strong claim, vulnerable to a single counter-example. It is a claim based on the formal rules of the system, however, not on the evaluation of specific graphics it may produce.”</em> (pp.&nbsp;15)</li>
 <li class="fragment"><em>“Some of the combinations of graphs and statistical methods may be <strong>degenerate</strong> or <strong>bizarre</strong>, but there is no moral reason to restrict them.”</em> (pp.&nbsp;112)</li>
 </ul>
-</div>
 </section>
 <section id="what-makes-a-plot-degenerate" class="slide level2 center middle">
 <h2>What makes a plot degenerate?</h2>
@@ -332,19 +324,11 @@ Adam Bartonicek
 </section>
 <section id="stacking-not-only-about-graphics" class="slide level2 smaller center">
 <h2>Stacking: Not only about graphics</h2>
-<div>
 <ul>
-<li class="fragment"><p><em>“Stacking is useful when the sum of the amounts represented by the individual stacked bars is in itself a meaningful amount.”</em> <span class="citation" data-cites="wilke2019">(<a href="#/references" role="doc-biblioref" onclick="">Wilke 2019, 52</a>)</span></p></li>
-<li class="fragment"><p><em>“Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that statistic must be summable. Stacking bars that represent counts, sums, or percentages are fine, but a stacked bar chart where bars show average values is generally meaningless.”</em> <span class="citation" data-cites="wills2011">(<a href="#/references" role="doc-biblioref" onclick="">Wills 2011, 112</a>)</span></p></li>
-<li class="fragment"><p><em>“[…] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which can easily lead to misinterpretation.”</em> <span class="citation" data-cites="wu2022">(<a href="#/references" role="doc-biblioref" onclick="">Wu 2022</a>)</span></p></li>
+<li class="fragment"><p><em>“Stacking is useful when the <strong>sum of the amounts</strong> represented by the individual stacked bars <strong>is in itself a meaningful</strong> amount.”</em> <span class="citation" data-cites="wilke2019">(<a href="#/references" role="doc-biblioref" onclick="">Wilke 2019, 52</a>)</span></p></li>
+<li class="fragment"><p><em>“Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that <strong>statistic must be summable</strong>. Stacking bars that represent counts, sums, or percentages are fine, but a <strong>stacked bar chart where bars show average values is generally meaningless.</strong>”</em> <span class="citation" data-cites="wills2011">(<a href="#/references" role="doc-biblioref" onclick="">Wills 2011, 112</a>)</span></p></li>
+<li class="fragment"><p><em>“[…] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which <strong>can easily lead to misinterpretation</strong>.”</em> <span class="citation" data-cites="wu2022">(<a href="#/references" role="doc-biblioref" onclick="">Wu 2022</a>)</span></p></li>
 </ul>
-</div>
-</section>
-<section id="what-we-compute-and-how-we-display-it-are-not-independent-concerns" class="slide level2 center middle">
-<h2><em>What</em> we compute and <em>how</em> we display it are not independent concerns…</h2>
-</section>
-<section id="particularly-in-interactive-data-visualization" class="slide level2 center middle">
-<h2>Particularly in interactive data visualization…</h2>
 </section>
 <section id="linked-selection" class="slide level2">
 <h2>Linked selection</h2>
@@ -360,31 +344,26 @@ Adam Bartonicek
 <aside><ol class="aside-footnotes"><li id="fn1"><p>see e.g. <span class="citation" data-cites="becker1987">Becker and Cleveland (<a href="#/references" role="doc-biblioref" onclick="">1987</a>)</span>; <span class="citation" data-cites="buja1996">Buja, Cook, and Swayne (<a href="#/references" role="doc-biblioref" onclick="">1996</a>)</span>; <span class="citation" data-cites="wilhelm2003">Wilhelm (<a href="#/references" role="doc-biblioref" onclick="">2003</a>)</span>; <span class="citation" data-cites="heer2012">Heer and Shneiderman (<a href="#/references" role="doc-biblioref" onclick="">2012</a>)</span>; <span class="citation" data-cites="ward2015">Ward, Grinstein, and Keim (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>; <span class="citation" data-cites="ware2019">Ware (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></p></li></ol></aside></section>
 <section id="displaying-linked-selection" class="slide level2">
 <h2>Displaying linked selection</h2>
-<div>
 <ul>
-<li class="fragment"><strong>One-to-one plots</strong>: Easy
+<li class="fragment"><strong>One-to-one plots</strong>:
 <ul>
 <li class="fragment">E.g. scatterplots, parallel coordinate plots</li>
-<li class="fragment">Just draw each case/object in corresponding color</li>
+<li class="fragment">Simple - just draw in corresponding color</li>
 </ul></li>
-<li class="fragment"><strong>Many-to-one (aggregated) plots</strong>: More tricky
+<li class="fragment"><strong>Many-to-one (aggregate) plots</strong>:
 <ul>
 <li class="fragment">E.g. barplots, histograms, bubbleplots, etc…</li>
-<li class="fragment">Typically highlight <em>parts</em> of objects (i.e.&nbsp;stacking)</li>
-<li class="fragment">Can also use dodging/overlay/replacement, however, drawbacks</li>
+<li class="fragment">More complicated - can highlight <em>parts</em> of objects (stacking/highlighting), dodge, overlay, etc…</li>
 </ul></li>
 </ul>
-</div>
 </section>
-<section id="disadvantages-of-dodgingoverlay" class="slide level2 center">
-<h2>Disadvantages of dodging/overlay</h2>
-<div>
+<section id="drawbacks-of-dodgingoverlay" class="slide level2 center">
+<h2>Drawbacks of dodging/overlay</h2>
 <ul>
 <li class="fragment">The object sizes are not fixed/bounded</li>
 <li class="fragment">Axis limits may need to be recomputed upon selection</li>
 <li class="fragment">Loss of visual context <span class="citation" data-cites="wilhelm2008 sievert2020">(see <a href="#/references" role="doc-biblioref" onclick="">Wilhelm 2008</a>; <a href="#/references" role="doc-biblioref" onclick="">Sievert 2020</a>)</span></li>
 </ul>
-</div>
 </section>
 <section id="section-5" class="slide level2 center middle">
 <h2></h2>
@@ -394,11 +373,11 @@ Adam Bartonicek
 <h2></h2>
 
 <img data-src="./images/stacking-vs-dodging.png" class="r-stretch"></section>
-<section id="highlighting-parts-of-objects-is-a-very-convenient-model" class="slide level2 center middle">
-<h2>Highlighting <em>parts</em> of objects is a very convenient model…</h2>
+<section id="highlighting-parts-is-convenient" class="slide level2 center middle">
+<h2>Highlighting <em>parts</em> is convenient…</h2>
 </section>
-<section id="however-part-whole-relations-must-be-well-defined" class="slide level2 center middle">
-<h2>However, part-whole relations must be well defined…</h2>
+<section id="however-the-relationship-of-parts-to-the-whole-must-be-well-defined" class="slide level2 center middle">
+<h2>However, the relationship of <em>parts</em> to the <em>whole</em> must be well-defined…</h2>
 </section>
 <section id="section-7" class="slide level2 center middle smaller">
 <h2></h2>
@@ -411,316 +390,79 @@ Adam Bartonicek
 <section id="only-sums-and-counts" class="slide level2 center middle">
 <h2>Only sums and counts?</h2>
 </section>
-<section id="section-8" class="slide level2">
+<section id="section-8" class="slide level2 center middle">
 <h2></h2>
 
 <img data-src="./images/stacking-max.png" class="r-stretch"></section>
-<section id="beyond-sums-and-counts" class="slide level2 center middle">
+<section id="beyond-sums-and-counts" class="slide level2">
 <h2>Beyond sums and counts</h2>
-<div>
 <ul>
-<li class="fragment">Sums preserve part-whole relations</li>
-<li class="fragment">But some other summary statistics do as well!</li>
-</ul>
-</div>
-</section>
-<section id="examples" class="slide level2">
-<h2>Examples</h2>
-<div>
+<li class="fragment">Other summary statistics preserve part-whole relations</li>
+<li class="fragment">Known as <em>monoids</em> in category theory/abstract algebra <span class="citation" data-cites="fong2019 lawvere2009">(<a href="#/references" role="doc-biblioref" onclick="">Fong and Spivak 2019</a>; <a href="#/references" role="doc-biblioref" onclick="">Lawvere and Schanuel 2009</a>)</span></li>
+<li class="fragment">Examples:
 <ul>
-<li class="fragment">Sum of sums is the sum of all cases</li>
-<li class="fragment">Maximum of maximums is the maximum of all cases</li>
-<li class="fragment">Product of products is the product of all cases</li>
-<li class="fragment">Other: convex hulls, vector norms, string concatenation</li>
-<li class="fragment"><strong>BUT</strong></li>
-<li class="fragment">Average of averages != the grand mean</li>
-<li class="fragment">Median of medians != median of all cases</li>
-<li class="fragment">Variance of variances != variance of all cases</li>
-</ul>
-</div>
-</section>
-<section id="code-examples" class="slide level2">
-<h2>Code examples</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">9</span>)</span>
-<span id="cb3-2"><a href=""></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">8</span>)</span>
-<span id="cb3-3"><a href=""></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">c</span>(<span class="fu">sum</span>(<span class="fu">c</span>(x, y, z)), <span class="fu">sum</span>(<span class="fu">c</span>(<span class="fu">sum</span>(x), <span class="fu">sum</span>(y), <span class="fu">sum</span>(z))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 42 42</code></pre>
-</div>
-</div>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">c</span>(<span class="fu">max</span>(<span class="fu">c</span>(x, y, z)), <span class="fu">max</span>(<span class="fu">c</span>(<span class="fu">max</span>(x), <span class="fu">max</span>(y), <span class="fu">max</span>(z))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 9 9</code></pre>
-</div>
-</div>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">c</span>(<span class="fu">mean</span>(<span class="fu">c</span>(x, y, z)), <span class="fu">mean</span>(<span class="fu">c</span>(<span class="fu">mean</span>(x), <span class="fu">mean</span>(y), <span class="fu">mean</span>(z))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.20 4.25</code></pre>
-</div>
-</div>
-</section>
-<section id="set-union-behaves-like-this-as-well" class="slide level2">
-<h2>Set union behaves like this as well…</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">9</span>)</span>
-<span id="cb10-2"><a href=""></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">8</span>)</span>
-<span id="cb10-3"><a href=""></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">c</span>(x, y, z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 1 3 9 4 2 1 8 7 4 3</code></pre>
-</div>
-</div>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">c</span>(x, <span class="fu">c</span>(y, z))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 1 3 9 4 2 1 8 7 4 3</code></pre>
-</div>
-</div>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">c</span>(<span class="fu">c</span>(x, y), z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 1 3 9 4 2 1 8 7 4 3</code></pre>
-</div>
-</div>
-</section>
-<section id="dataframes-as-sets-of-rows" class="slide level2">
-<h2>Dataframes as sets of rows…</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>), <span class="at">value =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
-<span id="cb17-2"><a href=""></a>y <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"B"</span>, <span class="st">"B"</span>), <span class="at">value =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">4</span>))</span>
-<span id="cb17-3"><a href=""></a>z <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"C"</span>), <span class="at">value =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(<span class="fu">rbind</span>(x, y, z))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 6
-Columns: 2
-$ group &lt;chr&gt; "A", "B", "B", "B", "A", "C"
-$ value &lt;dbl&gt; 1, 3, 9, 4, 2, 4</code></pre>
-</div>
-</div>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(<span class="fu">rbind</span>(x, <span class="fu">rbind</span>(y, z)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 6
-Columns: 2
-$ group &lt;chr&gt; "A", "B", "B", "B", "A", "C"
-$ value &lt;dbl&gt; 1, 3, 9, 4, 2, 4</code></pre>
-</div>
-</div>
-</section>
-<section id="what-we-do-when-we-visualize" class="slide level2 center middle">
-<h2>What we do when we visualize</h2>
-<div>
-<ol type="1">
-<li class="fragment"><em>Split our data into parts</em></li>
-<li class="fragment"><em>Compute summary statistics on these parts</em></li>
-<li class="fragment"><strong><em>(Combine the summaries back together)</em></strong></li>
-<li class="fragment"><em>Scale and render</em></li>
-</ol>
-</div>
-</section>
-<section id="when-combining-summaries-the-composite-should-be-a-valid-representation-of-the-union-of-the-underlying-data" class="slide level2 center middle smaller-title">
-<h2>When combining summaries, the composite should be a valid representation of the union of the underlying data…</h2>
-</section>
-<section id="therefore-our-summaries-must-behave-like-set-union" class="slide level2 center middle">
-<h2>Therefore, our summaries must <em>behave</em> like set union!</h2>
-</section>
-<section id="what-does-that-really-mean" class="slide level2 center middle">
-<h2>What does that <em>really</em> mean?</h2>
-</section>
-<section id="need-some-math" class="slide level2 center middle">
-<h2>Need some math…</h2>
-</section>
-<section id="set-union-properties" class="slide level2 center middle">
-<h2>Set union: Properties</h2>
-<ul>
-<li>Set union has several important mathematical properties</li>
-<li><strong>Associative</strong>: <span class="math inline">\(A \cup (B \cup C) = (A \cup B) \cup C = A \cup B \cup C\)</span></li>
-<li><strong>Unital</strong>: <span class="math inline">\(A \cup \varnothing = \varnothing \cup A = A\)</span></li>
+<li class="fragment">Sums, counts, products, maximums</li>
+<li class="fragment">Vector norms</li>
+<li class="fragment">Convex hulls</li>
+<li class="fragment">String concatenation</li>
+</ul></li>
 </ul>
 </section>
 <section id="monoids" class="slide level2">
 <h2>Monoids</h2>
-<div>
 <ul>
-<li class="fragment">Monoids are a fundamental concept from category theory<sup>1</sup></li>
 <li class="fragment">A monoid <span class="math inline">\((X, \otimes, e)\)</span> is a tuple consisting of a set <span class="math inline">\(X\)</span>, a binary operation <span class="math inline">\(\otimes\)</span>, and a neutral element <span class="math inline">\(e\)</span></li>
-<li class="fragment">Such that, for all <span class="math inline">\(x, y, z \in X\)</span>, the operation is:
+<li class="fragment">Such that, for all <span class="math inline">\(x, y, z \in X\)</span>, we have:
 <ul>
-<li class="fragment"><strong>Associative</strong>: <span class="math inline">\((x \otimes y) \otimes z = x \otimes (y \otimes z) = x \otimes y \otimes z\)</span></li>
-<li class="fragment"><strong>Unital</strong>: <span class="math inline">\(x \otimes e = e \otimes x = x\)</span></li>
+<li class="fragment"><strong>Associativity</strong>: <span class="math inline">\((x \otimes y) \otimes z = x \otimes (y \otimes z) = x \otimes y \otimes z\)</span></li>
+<li class="fragment"><strong>Unitality</strong>: <span class="math inline">\(x \otimes e = e \otimes x = x\)</span></li>
 </ul></li>
+<li class="fragment">Examples:
+<span class="math display">\[\begin{aligned}
+1 + (2 + 3) = (1 + 2) + 3&amp; \qquad x + 0 = 0 + x = x \\
+2 \cdot (3 \cdot 4) = (2 \cdot 3) \cdot 4&amp; \qquad x \cdot 1 = 1 \cdot x = x
+\end{aligned}\]</span></li>
 </ul>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>see e.g. <span class="citation" data-cites="fong2019">Fong and Spivak (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span>; <span class="citation" data-cites="lawvere2009">Lawvere and Schanuel (<a href="#/references" role="doc-biblioref" onclick="">2009</a>)</span>; <span class="citation" data-cites="milewski2018">Milewski (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></p></li></ol></aside></section>
-<section id="why-are-monoids-useful" class="slide level2 slightly-smaller">
-<h2>Why are monoids useful?</h2>
-<div>
+</section>
+<section id="summarizing-with-monoids" class="slide level2">
+<h2>Summarizing with monoids</h2>
 <ul>
-<li class="fragment">Suppose <span class="math inline">\(F\)</span> amounts to summarizing a set <span class="math inline">\(X\)</span> with a monoid by repeatedly applying <span class="math inline">\(\otimes\)</span>, <span class="math inline">\(F(X) = x_1 \otimes x_2 \otimes \ldots \otimes x_n\)</span></li>
-<li class="fragment">Now, suppose we summarize two sets <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> and combine the summaries: <span class="math display">\[\begin{align} F(X) \otimes F(Y) &amp;= (x_1 \otimes x_2 \otimes \ldots \otimes x_n) \otimes (y_1 \otimes y_2 \otimes \ldots \otimes y_n) \\
+<li class="fragment">Suppose <span class="math inline">\(F\)</span> amounts to summarizing a set <span class="math inline">\(X\)</span> by repeatedly applying <span class="math inline">\(\otimes\)</span>, <span class="math inline">\(F(X) = x_1 \otimes x_2 \otimes \ldots \otimes x_n\)</span></li>
+<li class="fragment">Now, suppose we summarize <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> and combine: <span class="math display">\[\begin{align} F(X) \otimes F(Y) &amp;= (x_1 \otimes x_2 \otimes \ldots \otimes x_n) \otimes (y_1 \otimes y_2 \otimes \ldots \otimes y_n) \\
 &amp;= x_1 \otimes x_2 \otimes \ldots \otimes x_n \otimes y_1 \otimes y_2 \otimes \ldots \otimes y_n \\
 &amp;= F(X \cup Y)
 \end{align}
 \]</span></li>
 </ul>
-</div>
 </section>
-<section id="with-monoids-combining-summaries-is-the-same-as-summarizing-unions" class="slide level2 center middle">
-<h2>With monoids, combining summaries is the same as summarizing unions!</h2>
-</section>
-<section id="summarizing-with-monoids" class="slide level2">
-<h2>Summarizing with monoids</h2>
-<div>
+<section id="monoids-part-whole-relations" class="slide level2">
+<h2>Monoids &amp; part-whole relations</h2>
 <ul>
-<li class="fragment">Special case of a functor (= structure-preserving mapping)</li>
-<li class="fragment">Monoids and functors are well-known in FP<sup>1</sup></li>
-<li class="fragment">The set-union-preserving property of monoids has been written about in distributed computing<sup>2</sup> and relational database theory<sup>3</sup> literature (but not data viz)</li>
+<li class="fragment">Combined summaries of parts = summary of the whole</li>
+<li class="fragment">This is useful for (single-group) linked selection:</li>
 </ul>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>See e.g. <span class="citation" data-cites="milewski2018">Milewski (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></p></li><li id="fn4"><p><span class="citation" data-cites="lin2013">Lin (<a href="#/references" role="doc-biblioref" onclick="">2013</a>)</span>; <span class="citation" data-cites="parent2018">Parent (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span>; <span class="citation" data-cites="fegaras2017">Fegaras (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span></p></li><li id="fn5"><p><span class="citation" data-cites="gibbons2018">Gibbons et al. (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></p></li></ol></aside></section>
-<section id="monoids-and-linked-selection" class="slide level2">
-<h2>Monoids and linked selection</h2>
-<ul>
-<li>Since monoids preserve set union, we can use them to display single-group linked selection:</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/linked-selection2.png" class="quarto-figure quarto-figure-center" height="250"></p>
-</figure>
-</div>
-<p><span class="math display">\[F(\text{Selection}) \otimes F(\text{Rest}) = F(\text{Selection} \cup \text{Rest})\]</span></p>
-</section>
-<section id="convex-hull-as-a-monoid" class="slide level2">
-<h2>Convex hull as a monoid</h2>
 
-<img data-src="./images/linked-selection3.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="with-multiple-selection-groups-things-are-a-bit-more-nuanced" class="slide level2 center middle">
-<h2>With multiple selection groups, things are a bit more nuanced…</h2>
-</section>
-<section id="combining-multiple-sets" class="slide level2">
-<h2>Combining multiple sets</h2>
-<div>
+<img data-src="./images/linked-selection3.png" class="fragment quarto-figure quarto-figure-center r-stretch"></section>
+<section id="monoids-and-the-gog" class="slide level2">
+<h2>Monoids and the GoG</h2>
 <ul>
-<li class="fragment">Recall that <span class="math inline">\(F(X) \otimes F(Y) = F(X \cup Y)\)</span></li>
-<li class="fragment">If we combine summaries of multiple sets: <span class="math display">\[\begin{align}
-&amp;F(X)  \\
-&amp;F(X) \otimes F(Y) = F(X \cup Y) \\
-&amp;F(X) \otimes F(Y) \otimes F(Z) = F(X \cup Y \cup Z)
-\end{align}\]</span></li>
-<li class="fragment"><em>“Compare <span class="math inline">\(X\)</span> against <span class="math inline">\((X \cup Y)\)</span> against <span class="math inline">\((X \cup Y \cup Z)\)</span>”</em></li>
-</ul>
-</div>
-</section>
-<section id="what-if-we-want-to-compare-x-against-y-directly" class="slide level2 center middle">
-<h2>What if we want to compare <span class="math inline">\(X\)</span> against <span class="math inline">\(Y\)</span> directly?</h2>
-</section>
-<section id="monoids-can-collapse-information" class="slide level2">
-<h2>Monoids can collapse information</h2>
-<div>
-<ul>
-<li class="fragment">There’s no guarantee that we will be able to recover <span class="math inline">\(F(X)\)</span> from <span class="math inline">\(F(X) \otimes F(Y) = F(X \cup Y)\)</span></li>
-<li class="fragment">For example, suppose: <span class="math display">\[\max(x, 10) = 10\]</span></li>
-<li class="fragment">What is <span class="math inline">\(x\)</span>? We don’t know</li>
-</ul>
-</div>
-</section>
-<section id="groups-and-inverses" class="slide level2">
-<h2>Groups and inverses</h2>
-<div>
-<ul>
-<li class="fragment">To recover information about parts, we also require an inverse operator <span class="math inline">\(\otimes^{-1}\)</span> such that: <span class="math display">\[(x \otimes y) \otimes^{-1} y = x\]</span></li>
-<li class="fragment">Analogue to set difference: <span class="math inline">\((A \cup B) \setminus B = A\)</span></li>
-<li class="fragment">A monoid with an inverse is known as a <em>group</em></li>
-<li class="fragment">(From abstract algebra/group theory)</li>
-</ul>
-</div>
-</section>
-<section id="monoids-vs.-groups" class="slide level2 center middle">
-<h2>Monoids vs.&nbsp;groups</h2>
-<div>
-<ul>
-<li class="fragment"><strong>Monoids</strong>: compare nested subsets
-<ul>
-<li class="fragment">E.g. one “special” group against all cases</li>
-</ul></li>
-<li class="fragment"><strong>Groups</strong>: compare disjoint subsets
-<ul>
-<li class="fragment">E.g. multiple distinct groups</li>
-</ul></li>
-</ul>
-</div>
-</section>
-<section id="interesting-philosophically" class="slide level2">
-<h2>Interesting philosophically</h2>
-<div>
-<ul>
-<li class="fragment"><strong>Comparing smokers vs.&nbsp;the whole population</strong>
-<ul>
-<li class="fragment">Smokers are a “special” group nested within the pop.</li>
-<li class="fragment">Can use monoids as summary statistics and combine</li>
-<li class="fragment">E.g. compare maximum lung volume of smokers vs.&nbsp;all</li>
-</ul></li>
-<li class="fragment"><strong>Comparing political parties</strong>
-<ul>
-<li class="fragment">Truly disjoint, does not make sense to nest</li>
-<li class="fragment">Should use groups as summary statistics if combining</li>
-</ul></li>
-</ul>
-</div>
-</section>
-<section id="other-properties-to-think-about" class="slide level2">
-<h2>Other properties to think about…</h2>
-<div>
-<ul>
-<li class="fragment">Monotonicity: do things only <em>grow</em> in one direction?</li>
-<li class="fragment">Commutativity: does row order matter?</li>
-<li class="fragment">(idempotence, distributivity, terminal objects, etc…)</li>
-</ul>
-</div>
-</section>
-<section id="back-to-gog" class="slide level2">
-<h2>Back to GoG</h2>
-<div>
-<ul>
-<li class="fragment">Started with the following quote:</li>
 <li class="fragment"><em>“Some of the combinations of graphs and statistical methods may be <strong>degenerate</strong> or <strong>bizarre</strong>, but there is no moral reason to restrict them.”</em> <span class="citation" data-cites="wilkinson2012">(<a href="#/references" role="doc-biblioref" onclick="">Wilkinson 2012, 112</a>)</span></li>
-<li class="fragment">= Plots with mapping that does not preserve structure</li>
-<li class="fragment">Conversely, <em>meaningful</em> plots are functors from the space of data to the space of graphics: <span class="math display">\[\text{Data} \to \text{Summaries} \to \text{Geometric objects}\]</span></li>
+<li class="fragment">= plots which do not preserve part-whole relations</li>
+<li class="fragment">For interactive graphics, there may be reason to restrict/think about plots algebraically</li>
 </ul>
-</div>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
-<div>
 <ul>
-<li class="fragment">GoG is a great model, however, room for refinement</li>
-<li class="fragment">Tension between modularity and preserving structure</li>
-<li class="fragment">Graphics and statistics are not independent</li>
-<li class="fragment">To draw objects composed of parts (e.g.&nbsp;highlighting), we need certain algebraic structure (monoids/groups)</li>
+<li class="fragment">GoG is a great but has room for refinement</li>
+<li class="fragment">Tension between modularity and structure
+<ul>
+<li class="fragment">Things which are independent are easy to work with</li>
+<li class="fragment">However, graphics and statistics are <em>not</em> independent</li>
+<li class="fragment">To draw objects composed of parts, we need monoids</li>
+</ul></li>
+<li class="fragment">What we can <em>do</em> with a graphic is fundamentally determined by what the graphic <em>is</em></li>
 </ul>
-</div>
-</section>
-<section id="section-9" class="slide level2 center middle larger">
-<h2></h2>
-<p><em>What we can <strong>do</strong> with a graphic is fundamentally determined by what the graphic <strong>is</strong></em></p>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
@@ -732,29 +474,14 @@ Becker, Richard A, and William S Cleveland. 1987. <span>“Brushing Scatterplots
 <div id="ref-buja1996" class="csl-entry" role="listitem">
 Buja, Andreas, Dianne Cook, and Deborah F Swayne. 1996. <span>“Interactive High-Dimensional Data Visualization.”</span> <em>Journal of Computational and Graphical Statistics</em> 5 (1): 78–99.
 </div>
-<div id="ref-fegaras2017" class="csl-entry" role="listitem">
-Fegaras, Leonidas. 2017. <span>“An Algebra for Distributed Big Data Analytics.”</span> <em>Journal of Functional Programming</em> 27: e27.
-</div>
 <div id="ref-fong2019" class="csl-entry" role="listitem">
 Fong, Brendan, and David I Spivak. 2019. <em>An Invitation to Applied Category Theory: Seven Sketches in Compositionality</em>. Cambridge University Press.
-</div>
-<div id="ref-gibbons2018" class="csl-entry" role="listitem">
-Gibbons, Jeremy, Fritz Henglein, Ralf Hinze, and Nicolas Wu. 2018. <span>“Relational Algebra by Way of Adjunctions.”</span> <em>Proceedings of the ACM on Programming Languages</em> 2 (ICFP): 1–28.
 </div>
 <div id="ref-heer2012" class="csl-entry" role="listitem">
 Heer, Jeffrey, and Ben Shneiderman. 2012. <span>“Interactive Dynamics for Visual Analysis: A Taxonomy of Tools That Support the Fluent and Flexible Use of Visualizations.”</span> <em>Queue</em> 10 (2): 30–55.
 </div>
 <div id="ref-lawvere2009" class="csl-entry" role="listitem">
 Lawvere, F William, and Stephen H Schanuel. 2009. <em>Conceptual Mathematics: A First Introduction to Categories</em>. Cambridge University Press.
-</div>
-<div id="ref-lin2013" class="csl-entry" role="listitem">
-Lin, Jimmy. 2013. <span>“Monoidify! Monoids as a Design Principle for Efficient Mapreduce Algorithms.”</span> <em>arXiv Preprint arXiv:1304.7544</em>.
-</div>
-<div id="ref-milewski2018" class="csl-entry" role="listitem">
-Milewski, Bartosz. 2018. <em>Category Theory for Programmers</em>. Blurb.
-</div>
-<div id="ref-parent2018" class="csl-entry" role="listitem">
-Parent, Sean. 2018. <span>“<span>Generic Programming</span>.”</span> Pacific++. <a href="https://www.youtube.com/watch?v=iwJpxWHuZQY">https://www.youtube.com/watch?v=iwJpxWHuZQY</a>.
 </div>
 <div id="ref-sievert2020" class="csl-entry" role="listitem">
 Sievert, Carson. 2020. <em>Interactive Web-Based Data Visualization with r, Plotly, and Shiny</em>. Chapman; Hall/CRC.
@@ -1040,190 +767,172 @@ Wu, Eugene. 2022. <span>“View Composition Algebra for Ad Hoc Comparison.”</s
     </script>
 
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
-          }
-        }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
-          }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
             }
           }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          return false;
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
             }
-          }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
         }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
-          }
-        } else {
-          return undefined;
-        }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
               }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     
 
 </body></html>

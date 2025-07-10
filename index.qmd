@@ -35,9 +35,7 @@ editor_options:
 
 :::{.incremental}
 - Algebraic
-- Declarative
-- Modular (mix and match)
-- Recipes, not taxonomies
+- Declarative (recipes, not taxonomies)
 - Comprehensive (?)
 :::
 
@@ -132,17 +130,13 @@ ggplot(mtcars, aes(cyl, wt, fill = am)) +
 
 ::: {.incremental}
 
-- *"Stacking is useful when the sum of the amounts represented by the individual stacked bars is in itself a meaningful amount."* [@wilke2019, p. 52]
+- *"Stacking is useful when the **sum of the amounts** represented by the individual stacked bars **is in itself a meaningful** amount."* [@wilke2019, p. 52]
 
-- *"Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that statistic must be summable. Stacking bars that represent counts, sums, or percentages are fine, but a stacked bar chart where bars show average values is generally meaningless."* [@wills2011, p. 112]
+- *"Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that **statistic must be summable**. Stacking bars that represent counts, sums, or percentages are fine, but a **stacked bar chart where bars show average values is generally meaningless.**"* [@wills2011, p. 112]
 
-- *"[...] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which can easily lead to misinterpretation."* [@wu2022]
+- *"[...] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which **can easily lead to misinterpretation**."* [@wu2022]
 
 :::
-
-## *What* we compute and *how* we display it are not independent concerns... {.center .middle}
-
-## Particularly in interactive data visualization... {.center .middle}
 
 ## Linked selection
 
@@ -184,17 +178,16 @@ ggsave("./images/linked-selection.png", width = 6.35, height = 2, units = "in")
 
 :::{.incremental}
 
-- **One-to-one plots**: Easy 
+- **One-to-one plots**: 
   - E.g. scatterplots, parallel coordinate plots
-  - Just draw each case/object in corresponding color
-- **Many-to-one (aggregated) plots**: More tricky
+  - Simple - just draw in corresponding color
+- **Many-to-one (aggregate) plots**:
   - E.g. barplots, histograms, bubbleplots, etc...
-  - Typically highlight *parts* of objects (i.e. stacking)
-  - Can also use dodging/overlay/replacement, however, drawbacks
-  
+  - More complicated - can highlight *parts* of objects (stacking/highlighting), dodge, overlay, etc...
+
 :::
 
-## Disadvantages of dodging/overlay {.center}
+## Drawbacks of dodging/overlay {.center}
 
 :::{.incremental}
 
@@ -240,9 +233,9 @@ ggsave("./images/stacking-vs-dodging.png", p)
 
 ![](./images/stacking-vs-dodging.png)
 
-## Highlighting *parts* of objects is a very convenient model... {.center .middle}
+## Highlighting *parts* is convenient... {.center .middle}
 
-## However, part-whole relations must be well defined... {.center .middle}
+## However, the relationship of *parts* to the *whole* must be well-defined... {.center .middle}
 
 ## {.center .middle .smaller}
 
@@ -254,7 +247,7 @@ ggsave("./images/stacking-vs-dodging.png", p)
 
 ## Only sums and counts? {.center .middle}
 
-##
+## {.center .middle}
 
 ```{r}
 #| eval: false
@@ -272,150 +265,37 @@ ggsave("./images/stacking-max.png", p)
 
 ![](./images/stacking-max.png)
 
-## Beyond sums and counts {.center .middle}
+## Beyond sums and counts
 
 :::{.incremental}
-- Sums preserve part-whole relations
-- But some other summary statistics do as well!
+- Other summary statistics preserve part-whole relations
+- Known as *monoids* in category theory/abstract algebra [@fong2019; @lawvere2009]
+- Examples: 
+  - Sums, counts, products, maximums
+  - Vector norms 
+  - Convex hulls
+  - String concatenation 
 :::
-
-## Examples
-
-:::{.incremental}
-- Sum of sums is the sum of all cases
-- Maximum of maximums is the maximum of all cases
-- Product of products is the product of all cases
-- Other: convex hulls, vector norms, string concatenation
-- **BUT**
-- Average of averages != the grand mean
-- Median of medians != median of all cases
-- Variance of variances != variance of all cases
-:::
-
-## Code examples
-
-```{r}
-#| echo: true
-x <- c(1, 3, 9)
-y <- c(4, 2, 1, 8)
-z <- c(7, 4, 3)
-```
-
-<br>
-
-```{r}
-#| echo: true
-c(sum(c(x, y, z)), sum(c(sum(x), sum(y), sum(z))))
-```
-
-<br>
-
-```{r}
-#| echo: true
-c(max(c(x, y, z)), max(c(max(x), max(y), max(z))))
-```
-
-<br>
-
-```{r}
-#| echo: true
-c(mean(c(x, y, z)), mean(c(mean(x), mean(y), mean(z))))
-```
-
-## Set union behaves like this as well...
-
-```{r}
-#| echo: true
-x <- c(1, 3, 9)
-y <- c(4, 2, 1, 8)
-z <- c(7, 4, 3)
-```
-
-<br>
-
-```{r}
-#| echo: true
-c(x, y, z)
-```
-
-<br>
-
-```{r}
-#| echo: true
-c(x, c(y, z))
-```
-
-<br>
-
-```{r}
-#| echo: true
-c(c(x, y), z)
-```
-
-## Dataframes as sets of rows...
-
-```{r}
-#| echo: true
-
-x <- data.frame(group = c("A", "B"), value = c(1, 3))
-y <- data.frame(group = c("B", "B"), value = c(9, 4))
-z <- data.frame(group = c("A", "C"), value = c(2, 4))
-```
-
-<br>
-
-```{r}
-#| echo: true
-dplyr::glimpse(rbind(x, y, z))
-```
-
-<br>
-
-```{r}
-#| echo: true
-dplyr::glimpse(rbind(x, rbind(y, z)))
-```
-
-## What we do when we visualize {.center .middle}
-
-:::{.incremental}
-1. *Split our data into parts*
-2. *Compute summary statistics on these parts*
-3. ***(Combine the summaries back together)***
-4. *Scale and render*
-:::
-
-## When combining summaries, the composite should be a valid representation of the union of the underlying data... {.center .middle .smaller-title}
-
-## Therefore, our summaries must *behave* like set union! {.center .middle}
-
-## What does that *really* mean? {.center .middle}
-
-## Need some math... {.center .middle}
-
-## Set union: Properties {.center .middle}
-
-- Set union has several important mathematical properties
-- **Associative**:
-$A \cup (B \cup C) = (A \cup B) \cup C = A \cup B \cup C$
-- **Unital**:
-$A \cup \varnothing = \varnothing \cup A = A$
 
 ## Monoids
 
 :::{.incremental}
-- Monoids are a fundamental concept from category theory^[see e.g. @fong2019; @lawvere2009; @milewski2018]
 - A monoid $(X, \otimes, e)$ is a tuple consisting of a set $X$, a binary operation $\otimes$, and a neutral element $e$
-- Such that, for all $x, y, z \in X$, the operation is:
-  - **Associative**: $(x \otimes y) \otimes z = x \otimes (y \otimes z) = x \otimes y \otimes z$
-  - **Unital**: $x \otimes e = e \otimes x = x$
+- Such that, for all $x, y, z \in X$, we have:
+  - **Associativity**: $(x \otimes y) \otimes z = x \otimes (y \otimes z) = x \otimes y \otimes z$
+  - **Unitality**: $x \otimes e = e \otimes x = x$
+- Examples: 
+\begin{aligned}
+  1 + (2 + 3) = (1 + 2) + 3& \qquad x + 0 = 0 + x = x \\
+  2 \cdot (3 \cdot 4) = (2 \cdot 3) \cdot 4& \qquad x \cdot 1 = 1 \cdot x = x
+\end{aligned}
 :::
   
-## Why are monoids useful? {.slightly-smaller}
+## Summarizing with monoids
 
 :::{.incremental}
-- Suppose $F$ amounts to summarizing a set $X$ with a monoid by repeatedly applying $\otimes$, $F(X) = x_1 \otimes x_2 \otimes \ldots \otimes x_n$
-- Now, suppose we summarize two sets $X$ and $Y$ and combine the summaries:
+- Suppose $F$ amounts to summarizing a set $X$ by repeatedly applying $\otimes$, $F(X) = x_1 \otimes x_2 \otimes \ldots \otimes x_n$
+- Now, suppose we summarize $X$ and $Y$ and combine:
 $$\begin{align} F(X) \otimes F(Y) &= (x_1 \otimes x_2 \otimes \ldots \otimes x_n) \otimes (y_1 \otimes y_2 \otimes \ldots \otimes y_n) \\
 &= x_1 \otimes x_2 \otimes \ldots \otimes x_n \otimes y_1 \otimes y_2 \otimes \ldots \otimes y_n \\
 &= F(X \cup Y)
@@ -423,59 +303,14 @@ $$\begin{align} F(X) \otimes F(Y) &= (x_1 \otimes x_2 \otimes \ldots \otimes x_n
 $$
 :::
 
-## With monoids, combining summaries is the same as summarizing unions! {.center .middle}
-
-## Summarizing with monoids
+## Monoids & part-whole relations
 
 :::{.incremental}
-- Special case of a functor (= structure-preserving mapping)
-- Monoids and functors are well-known in FP^[See e.g. @milewski2018]
-- The set-union-preserving property of monoids has been written about in distributed computing^[@lin2013; @parent2018; @fegaras2017] and relational database theory^[@gibbons2018] literature (but not data viz)
+- Combined summaries of parts = summary of the whole
+- This is useful for (single-group) linked selection:
 :::
 
-## Monoids and linked selection
-
-- Since monoids preserve set union, we can use them to display single-group linked selection:
-
 ```{r}
-limits <- c(2.55, 12, 4.25, 26)
-mtcars$selected <- with(mtcars, wt > limits[1] & mpg > limits[2]
-                        & wt < limits[3] & mpg < limits[4])
-
-p1 <- ggplot(mtcars, aes(wt, mpg, col = selected)) + 
-  geom_point() +
-  geom_rect(xmin = limits[1], xmax = limits[3], 
-            ymin = limits[2], ymax = limits[4],
-            fill = NA, col = "grey60", lty = "dashed") +
-  scale_color_manual(values = pal_paired_3) +
-  guides(col = "none") +
-  labs(x = "Weight", y = "Mileage") +
-  theme_bw(base_size = 12) +
-  theme(panel.grid = element_blank(),
-        plot.margin = unit(c(0, 0.5, 0, 0), units = "cm"))
-
-df <- aggregate(wt ~ cyl + selected, FUN = max, data = mtcars)
-
-p2 <- ggplot(df, aes(cyl, wt, fill = selected)) + 
-  geom_col(col = "white") + 
-  guides(fill = "none") +
-  theme_bw(base_size = 12) +
-  labs(x = "Cylinders", y = "Max weight") +
-  theme(panel.grid = element_blank(),
-        plot.margin = unit(c(0, 0, 0, 0.5), units = "cm"))
-
-p <- p1 + p2
-ggsave("./images/linked-selection2.png", width = 6.35, height = 2, units = "in")
-```
-
-![](./images/linked-selection2.png){height=250 fig-align="center"}
-
-$$F(\text{Selection}) \otimes F(\text{Rest}) = F(\text{Selection} \cup \text{Rest})$$
-
-## Convex hull as a monoid
-
-```{r}
-
 mtcars_selected <- subset(mtcars, selected)
 
 chull1 <- mtcars[with(mtcars, chull(wt, hp)), ]
@@ -508,96 +343,26 @@ p <- p1 + p2
 ggsave("./images/linked-selection3.png", width = 6.35, height = 3, units = "in")
 ```
 
-![](./images/linked-selection3.png){fig-align="center"}
+![](./images/linked-selection3.png){.fragment fig-align="center"}
 
-## With multiple selection groups, things are a bit more nuanced... {.center .middle}
-
-## Combining multiple sets
+## Monoids and the GoG
 
 :::{.incremental}
-- Recall that $F(X) \otimes F(Y) = F(X \cup Y)$
-- If we combine summaries of multiple sets:
-$$\begin{align} 
-&F(X)  \\
-&F(X) \otimes F(Y) = F(X \cup Y) \\
-&F(X) \otimes F(Y) \otimes F(Z) = F(X \cup Y \cup Z) 
-\end{align}$$
-- *"Compare $X$ against $(X \cup Y)$ against $(X \cup Y \cup Z)$"*
-:::
-
-## What if we want to compare $X$ against $Y$ directly? {.center .middle}
-
-## Monoids can collapse information
-
-:::{.incremental}
-- There's no guarantee that we will be able to recover $F(X)$ from $F(X) \otimes F(Y) = F(X \cup Y)$
-- For example, suppose: 
-$$\max(x, 10) = 10$$
-- What is $x$? We don't know 
-:::
-
-## Groups and inverses
-
-:::{.incremental}
-- To recover information about parts, we also require an inverse operator $\otimes^{-1}$ such that:
-$$(x \otimes y) \otimes^{-1} y = x$$
-- Analogue to set difference: $(A \cup B) \setminus B = A$
-- A monoid with an inverse is known as a *group* 
-- (From abstract algebra/group theory)
-:::
-
-## Monoids vs. groups {.center .middle}
-
-:::{.incremental}
-- **Monoids**: compare nested subsets
-  - E.g. one "special" group against all cases
-- **Groups**: compare disjoint subsets
-  - E.g. multiple distinct groups
-:::
-
-## Interesting philosophically
-
-:::{.incremental}
-- **Comparing smokers vs. the whole population**
-  - Smokers are a "special" group nested within the pop.
-  - Can use monoids as summary statistics and combine
-  - E.g. compare maximum lung volume of smokers vs. all
-- **Comparing political parties**
-  - Truly disjoint, does not make sense to nest
-  - Should use groups as summary statistics if combining
-:::
-
-## Other properties to think about...
-
-:::{.incremental}
-- Monotonicity: do things only *grow* in one direction?
-- Commutativity: does row order matter?
-- (idempotence, distributivity, terminal objects, etc...)
-:::
-
-## Back to GoG
-
-:::{.incremental}
-- Started with the following quote:
 - *"Some of the combinations of graphs and statistical methods may be **degenerate** or **bizarre**, but there is no moral reason to restrict them."* [@wilkinson2012, pp. 112]
-- = Plots with mapping that does not preserve structure
-- Conversely, *meaningful* plots are functors from the space of data to the space of graphics:
-$$\text{Data} \to \text{Summaries} \to \text{Geometric objects}$$
+- = plots which do not preserve part-whole relations
+- For interactive graphics, there may be reason to restrict/think about plots algebraically
 :::
 
 ## Conclusion
 
 :::{.incremental}
-- GoG is a great model, however, room for refinement
-- Tension between modularity and preserving structure
-- Graphics and statistics are not independent
-- To draw objects composed of parts (e.g. highlighting), we need certain algebraic structure (monoids/groups)
+- GoG is a great but has room for refinement
+- Tension between modularity and structure
+  - Things which are independent are easy to work with
+  - However, graphics and statistics are *not* independent
+  - To draw objects composed of parts, we need monoids
+- What we can *do* with a graphic is fundamentally determined by what the graphic *is*
 :::
-
-
-## {.center .middle .larger}
-
-*What we can **do** with a graphic is fundamentally determined by what the graphic **is***
 
 ## References 
 

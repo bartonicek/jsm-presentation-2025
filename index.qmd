@@ -73,7 +73,7 @@ theme_set(theme_bw(base_size = 20) +
 ```{r}
 #| eval: false
 p <- ggplot(mtcars, aes(cyl, wt, fill = am)) +
-  geom_bar(stat = "summary", fun = "mean") +
+  geom_bar(stat = "summary", fun = "mean", col = "white", linewidth = 0.8) +
   labs(x = "Cylinders", y = NULL, fill = "Auto")
 ggsave("./images/degenerate1.png", p, width = 6.53, height = 4, units = "in")
 ```
@@ -85,14 +85,14 @@ ggsave("./images/degenerate1.png", p, width = 6.53, height = 4, units = "in")
 ```{r}
 #| eval: false
 p <- ggplot(mtcars, aes(cyl, wt, fill = am)) +
-  geom_bar(stat = "summary", fun = "mean") +
+  geom_bar(stat = "summary", fun = "mean", col = "white", linewidth = 0.8) +
   labs(x = "Cylinders", y = "Average weight", fill = "Auto")
 ggsave("./images/degenerate2.png", p, width = 6.53, height = 4, units = "in")
 ```
 
 ![](./images/degenerate2.png)
 
-##
+## {.middle}
 
 ```{r}
 #| echo: true
@@ -105,14 +105,14 @@ ggplot(mtcars, aes(cyl, wt, fill = am)) +
 ```{r}
 #| eval: false
 p <- ggplot(mtcars, aes(cyl, wt, fill = am)) +
-  geom_bar(stat = "summary", fun = "mean") +
+  geom_bar(stat = "summary", fun = "mean", col = "white", linewidth = 0.8) +
   labs(x = "Cylinders", y = "Average weight", fill = "Auto")
 ggsave("./images/degenerate3.png", p, width = 6.53, height = 4, units = "in")
 ```
 
 ![](./images/degenerate3.png)
 
-##
+## {.middle}
 
 ```{r}
 #| echo: true
@@ -134,7 +134,7 @@ ggplot(mtcars, aes(cyl, wt, fill = am)) +
 
 - *"Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that **statistic must be summable**. Stacking bars that represent counts, sums, or percentages are fine, but a **stacked bar chart where bars show average values is generally meaningless.**"* [@wills2011, p. 112]
 
-- *"[...] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which **can easily lead to misinterpretation**."* [@wu2022]
+- *"[...] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertently compute e.g., averages of averages, which **can easily lead to misinterpretation**."* [@wu2022]
 
 :::
 
@@ -184,8 +184,11 @@ ggsave("./images/linked-selection.png", width = 6.35, height = 2, units = "in")
 - **Many-to-one (aggregate) plots**:
   - E.g. barplots, histograms, bubbleplots, etc...
   - More complicated - can highlight *parts* of objects (stacking/highlighting), dodge, overlay, etc...
-
 :::
+
+## {.center .middle}
+
+[Linked selection with a dodged barplot (Altair)](https://altair-viz.github.io/gallery/selection_histogram.html) 
 
 ## Drawbacks of dodging/overlay {.center}
 
@@ -197,11 +200,7 @@ ggsave("./images/linked-selection.png", width = 6.35, height = 2, units = "in")
   
 :::
 
-## {.center .middle}
-
-[Linked selection with a dodged barplot (Altair)](https://altair-viz.github.io/gallery/selection_histogram.html) 
-
-## {.center}
+<!-- ## {.center} -->
 
 ```{r}
 #| eval: false
@@ -231,19 +230,19 @@ p <- wrap_plots(plots, ncol = 3, heights = c(1, 0.1, 1))
 ggsave("./images/stacking-vs-dodging.png", p)
 ```
 
-![](./images/stacking-vs-dodging.png)
+<!-- ![](./images/stacking-vs-dodging.png) -->
 
-## Highlighting *parts* is convenient... {.center .middle}
+## Highlighting *parts* is powerful... {.center .middle}
 
 ## However, the relationship of *parts* to the *whole* must be well-defined... {.center .middle}
 
 ## {.center .middle .smaller}
 
-- *"Stacking is useful when the sum of the amounts represented by the individual stacked bars is in itself a meaningful amount."* [@wilke2019, p. 52]
+- *"Stacking is useful when the **sum of the amounts** represented by the individual stacked bars **is in itself a meaningful** amount."* [@wilke2019, p. 52]
 
-- *"Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that statistic must be summable. Stacking bars that represent counts, sums, or percentages are fine, but a stacked bar chart where bars show average values is generally meaningless."* [@wills2011, p. 112]
+- *"Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that **statistic must be summable**. Stacking bars that represent counts, sums, or percentages are fine, but a **stacked bar chart where bars show average values is generally meaningless.**"* [@wills2011, p. 112]
 
-- *"[...] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which can easily lead to misinterpretation."* [@wu2022]
+- *"[...] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertently compute e.g., averages of averages, which **can easily lead to misinterpretation**."* [@wu2022]
 
 ## Only sums and counts? {.center .middle}
 
@@ -255,12 +254,12 @@ ggsave("./images/stacking-vs-dodging.png", p)
 df <- aggregate(wt ~ cyl + am, FUN = max, data = mtcars)
 
 p <- ggplot(df, aes(cyl, wt, fill = am)) +
-  geom_bar(stat = "identity", col = "white") +
+  geom_bar(stat = "identity", col = "white", linewidth = 0.8) +
   scale_fill_manual(values = pal_paired_3) +
   labs(x = "Cylinders", y = "Maximum weight") +
   guides(fill = "none")
 
-ggsave("./images/stacking-max.png", p)
+ggsave("./images/stacking-max.png", p, width = 6.35, height = 4.5)
 ```
 
 ![](./images/stacking-max.png)
@@ -303,12 +302,9 @@ $$\begin{align} F(X) \otimes F(Y) &= (x_1 \otimes x_2 \otimes \ldots \otimes x_n
 $$
 :::
 
-## Monoids & part-whole relations
+##
 
-:::{.incremental}
-- Combined summaries of parts = summary of the whole
-- This is useful for (single-group) linked selection:
-:::
+$$F(X) \otimes F(Y) = F(X \cup Y)$$
 
 ```{r}
 mtcars_selected <- subset(mtcars, selected)
@@ -349,8 +345,8 @@ ggsave("./images/linked-selection3.png", width = 6.35, height = 3, units = "in")
 
 :::{.incremental}
 - *"Some of the combinations of graphs and statistical methods may be **degenerate** or **bizarre**, but there is no moral reason to restrict them."* [@wilkinson2012, pp. 112]
-- = plots which do not preserve part-whole relations
-- For interactive graphics, there may be reason to restrict/think about plots algebraically
+- ~ Plots which do not preserve part-whole relations
+- Important decision for interactive graphics
 :::
 
 ## Conclusion
@@ -358,11 +354,10 @@ ggsave("./images/linked-selection3.png", width = 6.35, height = 3, units = "in")
 :::{.incremental}
 - GoG is a great but has room for refinement
 - Tension between modularity and structure
-  - Things which are independent are easy to work with
+  - Things which are independent are easy
   - However, graphics and statistics are *not* independent
   - To draw objects composed of parts, we need monoids
 - What we can *do* with a graphic is fundamentally determined by what the graphic *is*
 :::
 
 ## References 
-

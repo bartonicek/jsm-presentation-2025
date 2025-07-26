@@ -301,7 +301,7 @@ Adam Bartonicek
 <h2></h2>
 
 <img data-src="./images/degenerate2.png" class="r-stretch"></section>
-<section id="section-3" class="slide level2">
+<section id="section-3" class="slide level2 middle">
 <h2></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(cyl, wt, <span class="at">fill =</span> am)) <span class="sc">+</span></span>
@@ -310,7 +310,7 @@ Adam Bartonicek
 </div>
 
 <img data-src="./images/degenerate3.png" class="r-stretch"></section>
-<section id="section-4" class="slide level2">
+<section id="section-4" class="slide level2 middle">
 <h2></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(cyl, wt, <span class="at">fill =</span> am)) <span class="sc">+</span></span>
@@ -327,7 +327,7 @@ Adam Bartonicek
 <ul>
 <li class="fragment"><p><em>“Stacking is useful when the <strong>sum of the amounts</strong> represented by the individual stacked bars <strong>is in itself a meaningful</strong> amount.”</em> <span class="citation" data-cites="wilke2019">(<a href="#/references" role="doc-biblioref" onclick="">Wilke 2019, 52</a>)</span></p></li>
 <li class="fragment"><p><em>“Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that <strong>statistic must be summable</strong>. Stacking bars that represent counts, sums, or percentages are fine, but a <strong>stacked bar chart where bars show average values is generally meaningless.</strong>”</em> <span class="citation" data-cites="wills2011">(<a href="#/references" role="doc-biblioref" onclick="">Wills 2011, 112</a>)</span></p></li>
-<li class="fragment"><p><em>“[…] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which <strong>can easily lead to misinterpretation</strong>.”</em> <span class="citation" data-cites="wu2022">(<a href="#/references" role="doc-biblioref" onclick="">Wu 2022</a>)</span></p></li>
+<li class="fragment"><p><em>“[…] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertently compute e.g., averages of averages, which <strong>can easily lead to misinterpretation</strong>.”</em> <span class="citation" data-cites="wu2022">(<a href="#/references" role="doc-biblioref" onclick="">Wu 2022</a>)</span></p></li>
 </ul>
 </section>
 <section id="linked-selection" class="slide level2">
@@ -357,6 +357,10 @@ Adam Bartonicek
 </ul></li>
 </ul>
 </section>
+<section id="section-5" class="slide level2 center middle">
+<h2></h2>
+<p><a href="https://altair-viz.github.io/gallery/selection_histogram.html">Linked selection with a dodged barplot (Altair)</a></p>
+</section>
 <section id="drawbacks-of-dodgingoverlay" class="slide level2 center">
 <h2>Drawbacks of dodging/overlay</h2>
 <ul>
@@ -364,33 +368,27 @@ Adam Bartonicek
 <li class="fragment">Axis limits may need to be recomputed upon selection</li>
 <li class="fragment">Loss of visual context <span class="citation" data-cites="wilhelm2008 sievert2020">(see <a href="#/references" role="doc-biblioref" onclick="">Wilhelm 2008</a>; <a href="#/references" role="doc-biblioref" onclick="">Sievert 2020</a>)</span></li>
 </ul>
+<!-- ## {.center} -->
+<!-- ![](./images/stacking-vs-dodging.png) -->
 </section>
-<section id="section-5" class="slide level2 center middle">
-<h2></h2>
-<p><a href="https://altair-viz.github.io/gallery/selection_histogram.html">Linked selection with a dodged barplot (Altair)</a></p>
-</section>
-<section id="section-6" class="slide level2 center">
-<h2></h2>
-
-<img data-src="./images/stacking-vs-dodging.png" class="r-stretch"></section>
-<section id="highlighting-parts-is-convenient" class="slide level2 center middle">
-<h2>Highlighting <em>parts</em> is convenient…</h2>
+<section id="highlighting-parts-is-powerful" class="slide level2 center middle">
+<h2>Highlighting <em>parts</em> is powerful…</h2>
 </section>
 <section id="however-the-relationship-of-parts-to-the-whole-must-be-well-defined" class="slide level2 center middle">
 <h2>However, the relationship of <em>parts</em> to the <em>whole</em> must be well-defined…</h2>
 </section>
-<section id="section-7" class="slide level2 center middle smaller">
+<section id="section-6" class="slide level2 center middle smaller">
 <h2></h2>
 <ul>
-<li><p><em>“Stacking is useful when the sum of the amounts represented by the individual stacked bars is in itself a meaningful amount.”</em> <span class="citation" data-cites="wilke2019">(<a href="#/references" role="doc-biblioref" onclick="">Wilke 2019, 52</a>)</span></p></li>
-<li><p><em>“Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that statistic must be summable. Stacking bars that represent counts, sums, or percentages are fine, but a stacked bar chart where bars show average values is generally meaningless.”</em> <span class="citation" data-cites="wills2011">(<a href="#/references" role="doc-biblioref" onclick="">Wills 2011, 112</a>)</span></p></li>
-<li><p><em>“[…] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertantly compute e.g., averages of averages, which can easily lead to misinterpretation.”</em> <span class="citation" data-cites="wu2022">(<a href="#/references" role="doc-biblioref" onclick="">Wu 2022</a>)</span></p></li>
+<li><p><em>“Stacking is useful when the <strong>sum of the amounts</strong> represented by the individual stacked bars <strong>is in itself a meaningful</strong> amount.”</em> <span class="citation" data-cites="wilke2019">(<a href="#/references" role="doc-biblioref" onclick="">Wilke 2019, 52</a>)</span></p></li>
+<li><p><em>“Because this gives the visual impression of one element that is the sum of several others, it is very important that if the element’s size is used to display a statistic, then that <strong>statistic must be summable</strong>. Stacking bars that represent counts, sums, or percentages are fine, but a <strong>stacked bar chart where bars show average values is generally meaningless.</strong>”</em> <span class="citation" data-cites="wills2011">(<a href="#/references" role="doc-biblioref" onclick="">Wills 2011, 112</a>)</span></p></li>
+<li><p><em>“[…] We do this to ensure that aggregate statistics are always computed over the input data, and so users do not inadvertently compute e.g., averages of averages, which <strong>can easily lead to misinterpretation</strong>.”</em> <span class="citation" data-cites="wu2022">(<a href="#/references" role="doc-biblioref" onclick="">Wu 2022</a>)</span></p></li>
 </ul>
 </section>
 <section id="only-sums-and-counts" class="slide level2 center middle">
 <h2>Only sums and counts?</h2>
 </section>
-<section id="section-8" class="slide level2 center middle">
+<section id="section-7" class="slide level2 center middle">
 <h2></h2>
 
 <img data-src="./images/stacking-max.png" class="r-stretch"></section>
@@ -435,20 +433,17 @@ Adam Bartonicek
 \]</span></li>
 </ul>
 </section>
-<section id="monoids-part-whole-relations" class="slide level2">
-<h2>Monoids &amp; part-whole relations</h2>
-<ul>
-<li class="fragment">Combined summaries of parts = summary of the whole</li>
-<li class="fragment">This is useful for (single-group) linked selection:</li>
-</ul>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<p><span class="math display">\[F(X) \otimes F(Y) = F(X \cup Y)\]</span></p>
 
 <img data-src="./images/linked-selection3.png" class="fragment quarto-figure quarto-figure-center r-stretch"></section>
 <section id="monoids-and-the-gog" class="slide level2">
 <h2>Monoids and the GoG</h2>
 <ul>
 <li class="fragment"><em>“Some of the combinations of graphs and statistical methods may be <strong>degenerate</strong> or <strong>bizarre</strong>, but there is no moral reason to restrict them.”</em> <span class="citation" data-cites="wilkinson2012">(<a href="#/references" role="doc-biblioref" onclick="">Wilkinson 2012, 112</a>)</span></li>
-<li class="fragment">= plots which do not preserve part-whole relations</li>
-<li class="fragment">For interactive graphics, there may be reason to restrict/think about plots algebraically</li>
+<li class="fragment">= Plots which do not preserve part-whole relations</li>
+<li class="fragment">Important decision for interactive graphics</li>
 </ul>
 </section>
 <section id="conclusion" class="slide level2">
@@ -457,7 +452,7 @@ Adam Bartonicek
 <li class="fragment">GoG is a great but has room for refinement</li>
 <li class="fragment">Tension between modularity and structure
 <ul>
-<li class="fragment">Things which are independent are easy to work with</li>
+<li class="fragment">Things which are independent are easy</li>
 <li class="fragment">However, graphics and statistics are <em>not</em> independent</li>
 <li class="fragment">To draw objects composed of parts, we need monoids</li>
 </ul></li>
